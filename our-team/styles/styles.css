@@ -8,22 +8,52 @@ html {
 h1 {
   margin: 0;
   padding: 50px 0;
-  color: Crimson;
+  color: darkolivegreen;
   text-shadow: 3px 3px 1px navajowhite;
   font-size: 60px;
   text-align: center;
 }
 
+  /* margin (center), left, right */
+
 h2 {
-  margin: 0 auto;
-  text-align: center;
-  padding: 30px 0;
-  font-size: 30px;
+  margin: 10px 30px;
+  text-align: left;
+  padding: 10px 15px;
+  font-size: 40px;
 
 }
 
 img {
   display: block;
-  margin: 0 auto;
-  max-width: 30%;
+  margin-left: 50px;
+  max-width: 20%;
+  border-radius: 12px;
+  padding: 0px;
+
+}
+
+p {
+  margin: 0px 40px;
+  font-size: 16px;
+  line-height:2;
+  letter-spacing: 1px;
+  color: black;
+  width: 350px;
+  text-align: center;
+  padding: 20px 15px;
+
+}
+
+p1 {
+  color: green;
+  font-family: "Raleway";
+  margin: 60px;
+  padding: 20px 15px;
+  font-size: 16px;
+  line-height:2;
+  letter-spacing: 1px;
+  width: 350px;
+  text-align: center;
+
 }
