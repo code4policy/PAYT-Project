@@ -9,7 +9,7 @@ h1 {
   padding: 20px 0; /*created 50 pixels of space on top/bottom of element & 0 pixels to the right & left of the element*/
   color: darkolivegreen; /*text color*/
   text-shadow: 3px 3px 1px navajowhite; /*creates shadow around text!*/
-  font-size: 50px; 
+  font-size: 40px; 
   text-align: center;
 }
 
@@ -100,5 +100,11 @@ img {
   margin: 0 auto 12px; /* centers the photo container */
   overflow: hidden;
   border-radius: 8px;
+}
+
+/* Back link spacing: remove default paragraph top margin so link sits closer to cards */
+.back-link {
+  margin: 0 20px 12px;
+  padding: 0 20px;
 }
 
