@@ -9,7 +9,7 @@ h1 {
   padding: 20px 0; /*created 50 pixels of space on top/bottom of element & 0 pixels to the right & left of the element*/
   color: darkolivegreen; /*text color*/
   text-shadow: 3px 3px 1px navajowhite; /*creates shadow around text!*/
-  font-size: 40px; 
+  font-size: 50px; 
   text-align: center;
 }
 
