@@ -136,7 +136,7 @@ img {
 
 /* Top banner: simple, full-width within body (no viewport trick) */
 .banner {
-  background: rgba(102, 6, 6, 0.8);
+  background: rgba(120, 6, 6, 0.8);
   color: #ffffff;
   text-align: left;
   padding: 10px 10px;
