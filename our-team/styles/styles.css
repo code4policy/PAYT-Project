@@ -1,59 +1,102 @@
 html {
-  /* px means "pixels". The base font size is now 10 pixels high */
-  font-size: 16px;
-  /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */
-  font-family: "Raleway", sans-serif;;
+  /*setting font & font size*/
+   font-size: 16px; 
+   font-family: "Raleway", sans-serif;
 }
 
 h1 {
-  margin: 0;
-  padding: 50px 0;
-  color: darkolivegreen;
-  text-shadow: 3px 3px 1px navajowhite;
-  font-size: 60px;
+  margin: 0; /*removed default browser margins*/
+  padding: 20px 0; /*created 50 pixels of space on top/bottom of element & 0 pixels to the right & left of the element*/
+  color: darkolivegreen; /*text color*/
+  text-shadow: 3px 3px 1px navajowhite; /*creates shadow around text!*/
+  font-size: 60px; 
   text-align: center;
 }
 
-  /* margin (center), left, right */
-
+/* Headings inside "team-member" cards, h2 = our names */
 h2 {
-  margin: 10px 30px;
+  margin: 0 0 12px;
+  padding: 0 0;
+  font-size: 24px;
   text-align: left;
-  padding: 10px 15px;
-  font-size: 40px;
-
 }
 
+/* center names (h2) */
+.team-member h2 {
+  text-align: center;
+  width: 80%; /* match .photo width */
+  margin: 12px auto; /*12 pixels of space above/below & automatically centers image between R & L */
+  font-size: 24px;
+}
+
+/* allows image to be responsive to the "card" size when screen size changes! */
 img {
+  max-width: 100%;
   display: block;
-  margin-left: 50px;
-  max-width: 20%;
   border-radius: 12px;
-  padding: 0px;
-
 }
 
-p {
-  margin: 0px 40px;
-  font-size: 16px;
-  line-height:2;
-  letter-spacing: 1px;
-  color: black;
-  width: 350px;
-  text-align: center;
-  padding: 20px 15px;
-
+/* Layout of the 3 cards in 3 columns, responsive to screen size! */
+.team-row {
+  display: flex; /*stacks cards side by side*/
+  gap: 20px; /*20px of space between each card*/
+  flex-wrap: wrap; /*cards will wrap if screen too small*/
+  justify-content: space-between; /*spreads cards evenly in row*/
+  align-items: stretch; /*matches card height even if content size differs*/
+  padding: 0 20px 60px; /*20px padding on left/right, 60px bottom padding*/
+  box-sizing: border-box;
 }
 
-p1 {
-  color: green;
-  font-family: "Raleway";
-  margin: 60px;
-  padding: 20px 15px;
-  font-size: 16px;
-  line-height:2;
-  letter-spacing: 1px;
-  width: 350px;
-  text-align: center;
+/* Each member is a vertical card, equal height */
+.team-member {
+  flex: 1 1 30%;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  background: #fff;
+}
 
+/* Ensure images fill card width and have bottom spacing */
+.team-member img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0; /* image fills the centered .photo */
+}
+
+/* Card content spacing */
+.team-member p {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #111;
+  text-align: left;
+  padding: 12px 20px;
+}
+
+/* Push email to bottom so cards align visually */
+.team-member .email {
+  margin-top: auto;
+  font-weight: 600;
+}
+
+/* Small-screen adjustments */
+@media (max-width: 900px) {
+  .team-member { flex: 1 1 45%; }
+}
+
+@media (max-width: 600px) {
+  .team-row { padding: 0 12px 40px; }
+  .team-member { flex: 1 1 100%; }
+}
+
+.photo {
+  width: 60%;
+  aspect-ratio: 1/1;
+  margin: 0 auto 12px; /* centers the photo container */
+  overflow: hidden;
+  border-radius: 8px;
 }
