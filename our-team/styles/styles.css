@@ -95,7 +95,7 @@ img {
 }
 
 .photo {
-  width: 80%;
+  width: 60%;
   aspect-ratio: 1/1;
   margin: 0 auto 12px; /* centers the photo container */
   overflow: hidden;
