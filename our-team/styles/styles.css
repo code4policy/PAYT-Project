@@ -20,9 +20,23 @@ h1 {
 
 /* Headings inside "team-member" cards, h2 = our names */
 h2 {
-  margin: 0 0 12px;
-  padding: 0 10px;
+  margin: 0 0 8px;
+  padding: 0 8px;
   font-size: 24px;
+  text-align: left;
+}
+
+h3 {
+  margin: 0 0 8px;
+  padding: 0 8px;
+  text-align: left;
+  color: rgb(176, 0, 0);
+  text-decoration: underline;
+}
+
+h4 {
+  margin: 0 0 8px;
+  padding: 0 8px;
   text-align: left;
 }
 
