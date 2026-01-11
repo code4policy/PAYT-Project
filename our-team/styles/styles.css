@@ -6,7 +6,7 @@ html {
 
 h1 {
   margin: 0; /*removed default browser margins*/
-  padding: 40px 0; /*created 50 pixels of space on top/bottom of element & 0 pixels to the right & left of the element*/
+  padding: 20px 0; /*created 50 pixels of space on top/bottom of element & 0 pixels to the right & left of the element*/
   color: darkolivegreen; /*text color*/
   text-shadow: 3px 3px 1px navajowhite; /*creates shadow around text!*/
   font-size: 60px; 
