@@ -102,9 +102,15 @@ img {
 .photo {
   width: 60%;
   aspect-ratio: 1/1;
-  margin: 0 auto 12px;
   overflow: hidden;
-  border-radius: 8px;
+  margin: 0 auto 12px;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Back link spacing: remove default paragraph top margin so link sits closer to cards */
