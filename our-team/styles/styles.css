@@ -13,7 +13,7 @@ h1 {
   text-align: center;
 }
 
-/* Headings inside "team-member" cards */
+/* Headings inside "team-member" cards, h2 = our names */
 h2 {
   margin: 0 0 12px;
   padding: 0 0;
@@ -53,7 +53,6 @@ img {
   min-width: 260px;
   display: flex;
   flex-direction: column;
-  padding: 16px;
   box-sizing: border-box;
   border: 1px solid #ddd;
   background: #fff;
@@ -75,7 +74,7 @@ img {
   line-height: 1.5;
   color: #111;
   text-align: left;
-  padding: 10px 10px;
+  padding: 12px 20px;
 }
 
 /* Push email to bottom so cards align visually */
