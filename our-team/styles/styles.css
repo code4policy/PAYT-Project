@@ -102,6 +102,17 @@ img {
   border-radius: 8px;
 }
 
+/* Top banner: transparent and non-floating (remains in document flow) */
+.banner {
+  background: rgba(118, 3, 3, 0.9);
+  color: #ffffff;
+  text-align: left;
+  padding: 10px 15px;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
 /* Back link spacing: remove default paragraph top margin so link sits closer to cards */
 .back-link {
   margin: 0 20px 12px;
