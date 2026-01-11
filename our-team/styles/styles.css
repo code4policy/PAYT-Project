@@ -81,6 +81,7 @@ img {
 .team-member .email {
   margin-top: auto;
   font-weight: 600;
+  color: darkolivegreen
 }
 
 /* Small-screen adjustments */
@@ -100,3 +101,4 @@ img {
   overflow: hidden;
   border-radius: 8px;
 }
+
