@@ -132,19 +132,18 @@ img {
   gap: 20px;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 0 20px 12px;
+  padding: 20px 20px 12px;
   box-sizing: border-box;
 }
 
 .stat-card {
   flex: 1 1 45%;
-  min-width: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   background: #fff;
   padding: 14px;
   border-radius: 8px;
@@ -159,8 +158,8 @@ img {
 }
 
 .stat-card .label {
-  font-size: 14px;
-  color: #333;
+  font-size: 20px;
+  color: #000000;
   text-align: center;
 }
 
@@ -182,7 +181,17 @@ img {
 
 
 /* Top banner: simple, full-width within body (no viewport trick) */
-.banner {
+.disclaim-banner {
+  background: darkolivegreen;
+  color: #ffffff;
+  text-align: left;
+  padding: 10px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
+.sectionbanner {
   background: #A51C30;
   color: #ffffff;
   text-align: left;
@@ -193,14 +202,33 @@ img {
 }
 
 /* Banner link color */
-.banner a {
+.disclaim-banner a {
   color: navajowhite;
   text-decoration: underline;
 }
 
-.banner a:hover,
-.banner a:focus {
+.disclaim-banner a:hover,
+.disclaim-banner a:focus {
   color: #fff9e6;
   text-decoration: none;
 }
 
+
+/* Tidy lists: reduce excessive spacing and ensure lists under card rows span full width */
+.stats-row > ul, .team-row > ul {
+  flex: 1 1 100%;
+  max-width: 100%;
+  margin: 8px 0; /* smaller vertical gap */
+  padding-left: 20px; /* standard bullet indent */
+  box-sizing: border-box;
+}
+
+/* General list reset to reduce large default browser spacing */
+ul {
+  margin: 0 0 12px 0;
+  padding-left: 20px;
+}
+
+li {
+  margin: 0 0 8px 0;
+}
