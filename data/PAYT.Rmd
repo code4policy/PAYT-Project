@@ -1,0 +1,139 @@
+---
+title: "PAYT"
+author: "PAYT TEAM"
+date: "2026-01-11"
+output: pdf_document
+
+
+
+
+
+---
+```{r}
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(janitor)
+library(fixest)
+```
+
+```{r}
+install.packages("readxl")
+install.packages("fixest")
+
+```
+
+```{r}
+
+data <- read_excel("/Users/brandonk28/Development/PAYT-Project/data/trashpopulations.xlsx")
+```
+
+```{r}
+#make municipality lower case
+
+data <- data %>%
+  clean_names() %>%
+  mutate(municipality = tolower(municipality))
+
+
+```
+
+```{r}
+paystart <- read_excel("/Users/brandonk28/Development/PAYT-Project/data/paytstart.xlsx") %>%
+  clean_names() %>%
+  mutate(municipality = tolower(municipality))
+```
+
+
+```{r}
+## **the n/a values for payt star year are municipalites that did not have payt programs**
+merged_data <- data %>%
+  left_join(paystart, by = "municipality")
+
+```
+
+
+```{r}
+#dropped n/a vlalues for start year, we used MA PAYT spreadsheet given that the numbers were robust, non rounded, and provided greater accuracuy for analysis, we strictly looked at trash services, and nothing about recycling
+final_data <- merged_data %>%
+  drop_na(payt_start_year) %>%
+  select (-c(households_served_by_municipal_recycling_program,
+             trash_cart_size,
+             recycling_cart_size,
+             single_stream_recyclables_tons,
+             start_date,
+             population.y,
+             total_households,
+             trash_households_served,
+             trash_service,
+             recycling_households_served,
+             recycling_service,
+             recycling_frequency,
+             x1st_option_dollar_amount,
+             x1st_option_unit_size,
+             x2nd_option_dollar_amount,
+             x2nd_option_unit_size,
+             x3rd_option_dollar_amount,
+             x3rd_option_unit_size,
+             type_of_unit_included_w_basic_service,
+             number_units_included_per_year,
+             hybrid_modified_payt_program, 
+             recycling_type
+             ))
+```
+
+```{r}
+#change character into numeric value
+final_data <- final_data %>%
+  mutate(trash_disposal_tonnage = as.numeric(trash_disposal_tonnage)) %>%
+  mutate(households_served_by_municipal_trash_program = as.numeric(households_served_by_municipal_trash_program))
+```
+
+
+```{r}
+#keep n/a values: for example, some of the data does not determine whether or not a payt is SMART and replace everythgin with "no data" to N/A value
+
+#years_payt can be positive or negative as it subtracts the survey year from the payt start year
+
+final_data_clean <- final_data %>%
+  mutate(across(where(is.character), ~ na_if(., "no data"))) %>%
+  mutate(PAYT = ifelse(is.na(payt_start_year), 0, 1)) %>%
+  mutate(years_payt = (survey_year - payt_start_year)) %>%
+  mutate(trash_disposal_tonnage = as.numeric(trash_disposal_tonnage)) %>%
+  mutate(households_served_by_municipal_trash_program = as.numeric(households_served_by_municipal_trash_program)) %>%
+  mutate(hh_tonnage_per_capita = trash_disposal_tonnage / households_served_by_municipal_trash_program)
+
+```
+
+```{r}
+#run a diff-in-diff model regressing hh_tonnage_per_capita on PAYT, yrs_before_payt, and the interaction between PAYT and yrs_payt
+
+diff_in_diff_model <- feols(hh_tonnage_per_capita ~ PAYT + survey_year | municipality + survey_year, data = final_data_clean)
+```
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
