@@ -136,12 +136,24 @@ img {
 
 /* Top banner: simple, full-width within body (no viewport trick) */
 .banner {
-  background: rgba(123, 7, 7, 0.8);
+  background: #A51C30;
   color: #ffffff;
   text-align: left;
   padding: 10px 10px;
   width: 100%;
   box-sizing: border-box;
   font-weight: 600;
+}
+
+/* Banner link color */
+.banner a {
+  color: navajowhite;
+  text-decoration: underline;
+}
+
+.banner a:hover,
+.banner a:focus {
+  color: #fff9e6;
+  text-decoration: none;
 }
 
