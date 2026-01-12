@@ -11,7 +11,7 @@ body {
 
 h1 {
   margin: 0;
-  padding: 20px 10px;
+  padding: 40px 10px 50px;
   color: darkolivegreen;
   text-shadow: 3px 3px 1px navajowhite;
   font-size: 40px;
@@ -125,6 +125,53 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.stats-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 0 20px 12px;
+  box-sizing: border-box;
+}
+
+.stat-card {
+  flex: 1 1 45%;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.stat-card .number {
+  font-size: 28px;
+  font-weight: 700;
+  color: darkolivegreen;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.stat-card .label {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+/* Small-screen adjustments for stats */
+@media (max-width: 900px) {
+  .stat-card { flex: 1 1 45%; }
+}
+
+@media (max-width: 600px) {
+  .stats-row { padding: 0 12px 8px; }
+  .stat-card { flex: 1 1 100%; }
 }
 
 /* Back link spacing: remove default paragraph top margin so link sits closer to cards */
