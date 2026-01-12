@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  padding: 0;
+  padding: 4px;
   box-sizing: border-box;
 }
 
@@ -131,7 +131,9 @@ li {
 .method-banner {
   width: 100%;
   box-sizing: border-box;
+  padding-bottom: 8px;
   margin: 2px 0 2px; 
+  font-size: 15px;
 }
 
 .method-toggle {
@@ -148,10 +150,6 @@ li {
   font-weight: 700;
   cursor: pointer;
   border-radius: 6px;
-}
-
-.method-toggle:focus {
-  outline: 3px solid rgba(165,28,48,0.15);
 }
 
 .method-content {
