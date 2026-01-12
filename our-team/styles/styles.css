@@ -11,7 +11,7 @@ body {
 
 h1 {
   margin: 0;
-  padding: 40px 10px 50px;
+  padding: 30px 10px;
   color: darkolivegreen;
   text-shadow: 3px 3px 1px navajowhite;
   font-size: 40px;
@@ -40,6 +40,147 @@ h4 {
   text-align: left;
 }
 
+/* General list reset to reduce large default browser spacing */
+ul {
+  margin: 0 0 0 0;
+  padding-left: 20px;
+}
+
+li {
+  margin: 0 0 0 0;
+}
+
+/* MAIN PAGE STYLES*/
+.stats-row {
+  display: flex;
+  /* reduce vertical spacing between rows while keeping horizontal gap */
+  gap: 8px 20px; /* row-gap column-gap */
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+}
+
+.stat-card {
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 2px solid #ddd;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.stat-card .number {
+  font-size: 25px;
+  font-weight: 700;
+  color: darkolivegreen;
+  text-align: center;
+}
+
+.stat-card .label {
+  font-size: 18px;
+  color: #000000;
+  text-align: center;
+}
+
+/* Back link spacing: remove default paragraph top margin so link sits closer to cards */
+.back-link {
+  margin: 0 20px 12px;
+  padding: 0 20px;
+}
+
+/* Top banner: simple, full-width within body (no viewport trick) */
+.disclaim-banner {
+  background: darkolivegreen;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
+.sectionbanner {
+  background: #A51C30;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
+/* Banner link color */
+.disclaim-banner a {
+  color: navajowhite;
+  text-decoration: underline;
+}
+
+.disclaim-banner a:hover,
+.disclaim-banner a:focus {
+  color: #fff9e6;
+  text-decoration: none;
+}
+/* METHODOLOGY BANNER STYLES */
+/* Collapsible thin methodology banner under cards */
+.method-banner {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 2px 0 2px; 
+}
+
+.method-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 8px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.method-toggle:focus {
+  outline: 3px solid rgba(165,28,48,0.15);
+}
+
+.method-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.28s ease, padding 0.28s ease;
+  background: #ffffff;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  border-radius: 0 0 6px 6px;
+  padding: 0 10px;
+}
+
+.method-content.open {
+  padding: 8px;
+  max-height: 480px; /* generous limit for content */
+}
+
+.chev {
+  margin-left: 8px;
+  transition: transform 0.25s ease;
+}
+
+.method-toggle[aria-expanded="true"] .chev {
+  transform: rotate(180deg);
+}
+
+/* OUR TEAM PAGE STYLES */
 /* center names (h2) */
 .team-member h2 {
   text-align: center;
@@ -109,7 +250,7 @@ img {
 }
 
 @media (max-width: 600px) {
-  .team-row { padding: 0 12px 8px; }
+  .team-row { padding: 0 12px; }
   .team-member { flex: 1 1 100%; }
 }
 
@@ -127,108 +268,5 @@ img {
   object-fit: cover;
 }
 
-.stats-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  padding: 20px 20px 12px;
-  box-sizing: border-box;
-}
-
-.stat-card {
-  flex: 1 1 45%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border: 2px solid #ddd;
-  background: #fff;
-  padding: 14px;
-  border-radius: 8px;
-}
-
-.stat-card .number {
-  font-size: 28px;
-  font-weight: 700;
-  color: darkolivegreen;
-  margin-bottom: 6px;
-  text-align: center;
-}
-
-.stat-card .label {
-  font-size: 20px;
-  color: #000000;
-  text-align: center;
-}
-
-/* Small-screen adjustments for stats */
-@media (max-width: 900px) {
-  .stat-card { flex: 1 1 45%; }
-}
-
-@media (max-width: 600px) {
-  .stats-row { padding: 0 12px 8px; }
-  .stat-card { flex: 1 1 100%; }
-}
-
-/* Back link spacing: remove default paragraph top margin so link sits closer to cards */
-.back-link {
-  margin: 0 20px 12px;
-  padding: 0 20px;
-}
 
 
-/* Top banner: simple, full-width within body (no viewport trick) */
-.disclaim-banner {
-  background: darkolivegreen;
-  color: #ffffff;
-  text-align: left;
-  padding: 10px 10px;
-  width: 100%;
-  box-sizing: border-box;
-  font-weight: 600;
-}
-
-.sectionbanner {
-  background: #A51C30;
-  color: #ffffff;
-  text-align: left;
-  padding: 10px 10px;
-  width: 100%;
-  box-sizing: border-box;
-  font-weight: 600;
-}
-
-/* Banner link color */
-.disclaim-banner a {
-  color: navajowhite;
-  text-decoration: underline;
-}
-
-.disclaim-banner a:hover,
-.disclaim-banner a:focus {
-  color: #fff9e6;
-  text-decoration: none;
-}
-
-
-/* Tidy lists: reduce excessive spacing and ensure lists under card rows span full width */
-.stats-row > ul, .team-row > ul {
-  flex: 1 1 100%;
-  max-width: 100%;
-  margin: 8px 0; /* smaller vertical gap */
-  padding-left: 20px; /* standard bullet indent */
-  box-sizing: border-box;
-}
-
-/* General list reset to reduce large default browser spacing */
-ul {
-  margin: 0 0 12px 0;
-  padding-left: 20px;
-}
-
-li {
-  margin: 0 0 8px 0;
-}
