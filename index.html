@@ -111,27 +111,28 @@
                                 <li>
                                     <strong>Step 1:</strong> Merge data sources to obtain key information
                                     <ul>
-                                        <li>Examples: PAYT adoption year, years pre- and post-adoption, annual tonnage per household, enrolled households.</li>
+                                        <li>Data sources include the Massachusetts Department of Environmental Protection's Municipal Solid Waste and Recycling surveys from 2009 to 2024, inclusive; the Massachusetts Department of Revenue's Divison of Local Services; and the Massachusetts Department of Environmental Protection's spreadsheet, "Massachusetts Municipalities with PAYT Programs, June 2025".</li>
+                                        <li>Key information: PAYT adoption year, years pre- and post-PAYT adoption, number of households enrolled in each municipality's trash system, annual tonnage disposed per household.</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <strong>Step 2:</strong> Generate per-household yearly trash tonnage (tonnes per household)
+                                    <strong>Step 2:</strong> Generate annual tons of waste disposed per household
                                     <ul>
-                                        <li>Tonnes per household are calculated by dividing the municipality's total annual disposal tonnage by the number of households served by the PAYT program.</li>
-                                        <li>Tonnes per household standardizes our metric, as larger municipalities will produce more than smaller municipalities.</li>
+                                        <li>Tons per household are calculated by dividing the municipality's total annual disposal tonnage by the number of households served by the PAYT program.</li>
+                                        <li>Tons per household standardizes our metric, as larger municipalities will dispose of more total trash than smaller municipalities.</li>
                                     </ul>
                                 </li>
                                 <li>
                                     <strong>Step 3:</strong> Remove records that would distort the "normal trash" comparison
                                     <ul>
-                                        <li>Keep only rows in which bulky waste is excluded.</li>
+                                        <li>Keep only rows of data in which bulky waste is excluded.</li>
                                         <li>Exclude years that did not record yearly tonnage.</li>
                                     </ul>
                                 </li>
                                 <li>
                                     <strong>Step 4:</strong> Identify the longest pre- and post-period for parallel trends
                                     <ul>
-                                        <li>Filter data to contain municipalities with data 5 years before through 5 years after PAYT.</li>
+                                        <li>Filter data to contain municipalities with data 5 years before implementing PAYT through 5 years after implementing PAYT.</li>
                                         <li>If one town has 20 years of data and another has 3 years, comparisons may not follow parallel trends; therefore, we may not conclude that adopting PAYT had a statistically significant result.</li>
                                     </ul>
                                 </li>
