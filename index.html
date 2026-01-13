@@ -107,6 +107,45 @@
                     <div class="method-banner">
                         <button class="method-toggle" aria-expanded="false">Methodology<span class="chev">▾</span></button>
                         <div class="method-content" hidden>
+                            <ol>
+                                <li>
+                                    <strong>Step 1:</strong> Merge data sources to obtain key information
+                                    <ul>
+                                        <li>Examples: PAYT adoption year, years pre- and post-adoption, annual tonnage per household, enrolled households.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Step 2:</strong> Generate per-household yearly trash tonnage (tonnes per household)
+                                    <ul>
+                                        <li>Tonnes per household are calculated by dividing the municipality's total annual disposal tonnage by the number of households served by the PAYT program.</li>
+                                        <li>Tonnes per household standardizes our metric, as larger municipalities will produce more than smaller municipalities.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Step 3:</strong> Remove records that would distort the "normal trash" comparison
+                                    <ul>
+                                        <li>Keep only rows in which bulky waste is excluded.</li>
+                                        <li>Exclude years that did not record yearly tonnage.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Step 4:</strong> Identify the longest pre- and post-period for parallel trends
+                                    <ul>
+                                        <li>Filter data to contain municipalities with data 5 years before through 5 years after PAYT.</li>
+                                        <li>If one town has 20 years of data and another has 3 years, comparisons may not follow parallel trends; therefore, we may not conclude that adopting PAYT had a statistically significant result.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Step 5:</strong> Select Harvard, Chicopee, Heath, Hinsdale, and Peru
+                                </li>
+                                <li>
+                                    <strong>Step 6:</strong> Create a time series chart
+                                    <ul>
+                                        <li><strong>IMPORTANT NOTE:</strong> Our time of adoption begins at -1 (the adoption year); Year 0 is the implementation year; Year 1 is one year after implementation.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
                     </div>
                     
         </div>
