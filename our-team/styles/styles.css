@@ -11,6 +11,7 @@ body {
 
 :root {
   --section-gap: 2rem; /* vertical space used between stats rows and method banners */
+  --list-gap: 0.25rem; /* vertical spacing between list items — tweak this to make bullets tighter/looser */
 }
 
 h1 {
@@ -50,8 +51,29 @@ ul {
   padding-left: 20px;
 }
 
+/* Use a variable for list spacing so we can tweak it globally */
 li {
-  margin: 0 0 0 0;
+  margin: 0;
+  padding-block: var(--list-gap);
+  line-height: 1.4;
+}
+
+/* Remove default paragraph margins inside list items so spacing is consistent */
+li > p {
+  margin: 0;
+}
+
+/* Tighten nested list spacing and remove extra block padding at the start */
+ul ul {
+  padding-left: 1rem;
+  margin: 0;
+  padding-block-start: 0;
+  padding-block-end: 0;
+}
+
+/* Use smaller padding for nested list items so their rhythm matches top-level lists */
+ul ul li {
+  padding-block: calc(var(--list-gap) * 0.5); /* nested items are 50% of top-level gap */
 }
 
 /* MAIN PAGE STYLES*/
