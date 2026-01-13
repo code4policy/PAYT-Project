@@ -206,11 +206,14 @@
                     // measure distance from top of viewport to top of section
                     var rect = section.getBoundingClientRect();
                     // remaining viewport height below the section's top
-                    var remaining = Math.max(window.innerHeight - rect.top, Math.round(window.innerHeight * 0.5)); // at least 50% viewport
-                    // apply inline min-height to guarantee full-page feel
-                    section.style.minHeight = remaining + 'px';
+                    var remaining = Math.max(window.innerHeight - rect.top, Math.round(window.innerHeight * 0.45)); // at least 45% viewport
+                    // cap the computed height so the section doesn't become excessively tall on large screens
+                    var cap = Math.round(window.innerHeight * 0.75); // no more than 75% of viewport
+                    var applied = Math.min(remaining, cap);
+                    // apply inline min-height to guarantee full-page feel without creating a huge gap
+                    section.style.minHeight = applied + 'px';
                     // debug: uncomment to see values in console
-                    // console.log('setStatsFullpageHeight', { rectTop: rect.top, remaining: remaining });
+                    // console.log('setStatsFullpageHeight', { rectTop: rect.top, remaining: remaining, cap: cap, applied: applied });
                 }
 
                 // run after full page load and on resize (and when fonts/images settle)
