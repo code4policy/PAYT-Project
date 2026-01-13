@@ -59,7 +59,7 @@ li {
   justify-content: flex-start;
   padding: 8px;
   box-sizing: border-box;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
 .stat-card {
@@ -109,6 +109,9 @@ li {
   background: #A51C30;
   color: #ffffff;
   text-align: left;
+  /* add vertical spacing between banners */
+  margin-top: 40px;
+  margin-bottom: 10px;
   padding: 8px 10px;
   width: 100%;
   box-sizing: border-box;
@@ -132,8 +135,14 @@ li {
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 8px;
-  margin: 2px 0 2px; 
+  margin-top: var(--section-gap);
+  margin-bottom: 0;
   font-size: 15px;
+}
+
+/* If a method-banner sits inside a .stats-row, the row gap should control spacing instead */
+.stats-row .method-banner {
+  margin-top: 0;
 }
 
 .method-toggle {
