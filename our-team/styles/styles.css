@@ -9,6 +9,10 @@ body {
   box-sizing: border-box;
 }
 
+:root {
+  --section-gap: 2rem; /* vertical space used between stats rows and method banners */
+}
+
 h1 {
   margin: 0;
   padding: 30px 10px;
@@ -86,6 +90,8 @@ li {
   font-size: 18px;
   color: #000000;
   text-align: center;
+  /* add vertical padding so labels have more breathing room inside the card */
+  padding: 6px 0;
 }
 
 /* Back link spacing: remove default paragraph top margin so link sits closer to cards */
@@ -109,6 +115,8 @@ li {
   background: #A51C30;
   color: #ffffff;
   text-align: left;
+  /* make banner text more prominent */
+  font-size: 18px;
   /* add vertical spacing between banners */
   margin-top: 40px;
   margin-bottom: 10px;
