@@ -225,7 +225,7 @@ ul ul li {
 .method-banner {
   width: 100%;
   box-sizing: border-box;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
   margin-top: var(--section-gap);
   margin-bottom: 0;
   font-size: 15px;
@@ -261,11 +261,11 @@ ul ul li {
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
   border-radius: 0 0 6px 6px;
-  padding: 0 10px;
+  padding: 12px;
 }
 
 .method-content.open {
-  padding: 8px;
+  padding: 12px;
   max-height: 480px; /* generous limit for content */
 }
 
