@@ -9,6 +9,10 @@ body {
   box-sizing: border-box;
 }
 
+:root {
+  --section-gap: 2rem; /* vertical space used between stats rows and method banners */
+}
+
 h1 {
   margin: 0;
   padding: 30px 10px;
@@ -59,7 +63,7 @@ li {
   justify-content: flex-start;
   padding: 8px;
   box-sizing: border-box;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
 .stat-card {
@@ -86,6 +90,8 @@ li {
   font-size: 18px;
   color: #000000;
   text-align: center;
+  /* add vertical padding so labels have more breathing room inside the card */
+  padding: 6px 0;
 }
 
 /* Back link spacing: remove default paragraph top margin so link sits closer to cards */
@@ -109,6 +115,11 @@ li {
   background: #A51C30;
   color: #ffffff;
   text-align: left;
+  /* make banner text more prominent */
+  font-size: 18px;
+  /* add vertical spacing between banners */
+  margin-top: 40px;
+  margin-bottom: 10px;
   padding: 8px 10px;
   width: 100%;
   box-sizing: border-box;
@@ -132,8 +143,14 @@ li {
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 8px;
-  margin: 2px 0 2px; 
+  margin-top: var(--section-gap);
+  margin-bottom: 0;
   font-size: 15px;
+}
+
+/* If a method-banner sits inside a .stats-row, the row gap should control spacing instead */
+.stats-row .method-banner {
+  margin-top: 0;
 }
 
 .method-toggle {
