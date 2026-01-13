@@ -110,7 +110,7 @@ ul ul li {
   flex-direction: column;
   justify-content: flex-start; /* top-align content */
   align-items: stretch;        /* let children stretch full width */
-  padding-top: 24px;
+  padding-top: 10px;
 
 } 
 
@@ -201,7 +201,7 @@ ul ul li {
   /* make banner text more prominent */
   font-size: 18px;
   /* add vertical spacing between banners */
-  margin-top: 40px;
+  margin-top: 10px;
   margin-bottom: 10px;
   padding: 8px 10px;
   width: 100%;
@@ -261,7 +261,7 @@ ul ul li {
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
   border-radius: 0 0 6px 6px;
-  padding: 12px;
+  padding: 0; /* no padding when collapsed to avoid reserved space */
 }
 
 .method-content.open {
