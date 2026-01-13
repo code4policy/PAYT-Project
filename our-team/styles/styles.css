@@ -10,6 +10,8 @@ body {
 }
 
 :root {
+  /* Vertical space to subtract from 100vh to account for banners/header above the section */
+  --stats-top-offset: 140px; /* adjust if headers/banners change size */
   --section-gap: 2rem; /* vertical space used between stats rows and method banners */
   --list-gap: 0.25rem; /* vertical spacing between list items — tweak this to make bullets tighter/looser */
 }
@@ -80,11 +82,66 @@ ul ul li {
 .stats-row {
   display: flex;
   /* reduce vertical spacing between rows while keeping horizontal gap */
-  gap: 8px 20px; /* row-gap column-gap */
+  gap: 1.5rem; /* row-gap column-gap */
   flex-wrap: wrap;
   justify-content: flex-start;
   padding: 8px;
   box-sizing: border-box;
+  margin-bottom: 4px;
+  align-items: stretch;
+
+}
+
+/* Centered two-up row: center the row and make two cards split the width */
+.stats-row.centered {
+  justify-content: center;
+  gap: 1.5rem;
+}
+.stats-row.centered .stat-card {
+  flex: 0 1 calc(50% - 0.75rem); /* two cards, accounting for gap */
+  max-width: calc(50% - 0.75rem);
+}
+
+/* Full-page stats section: top-align content and fill viewport (account for header) */
+.stats-fullpage{
+  min-height: calc(100vh - var(--stats-top-offset));
+  width: 100%;                /* full width */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* top-align content */
+  align-items: stretch;        /* let children stretch full width */
+  padding-top: 24px;
+
+} 
+
+/* Let rows span the section width */
+.stats-fullpage .stats-row{
+  width: 100%;
+  max-width: none;             /* remove the cap */
+  display: flex;               /* ensure flex is actually on */
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;             /* important for smaller screens */
+}
+/* three-up row: evenly split three cards */
+.stats-fullpage .stats-row.three-up .stat-card {
+  flex: 0 1 calc(33.333% - 1rem);
+  max-width: calc(33.333% - 1rem);
+}
+
+/* Mobile: stack centered/two-up rows into single column */
+@media (max-width: 700px) {
+  .stats-row.centered .stat-card,
+  .stats-fullpage .stats-row.three-up .stat-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .stats-fullpage {
+    /* account for taller header area on small screens */
+    min-height: calc(100vh - 180px);
+    padding: 12px;
+  }
   margin-bottom: 10px;
 }
 
@@ -99,6 +156,9 @@ ul ul li {
   background: #fff;
   padding: 10px;
   border-radius: 8px;
+  flex: 1 1 320px;
+  min-width: 220px;
+
 }
 
 .stat-card .number {
@@ -106,6 +166,7 @@ ul ul li {
   font-weight: 700;
   color: darkolivegreen;
   text-align: center;
+  padding: 4px 0 0;
 }
 
 .stat-card .label {
@@ -220,9 +281,10 @@ ul ul li {
 /* OUR TEAM PAGE STYLES */
 /* center names (h2) */
 .team-member h2 {
+  display: block;
   text-align: center;
-  width: 80%; /* match .photo width */
-  margin: 12px auto;
+  width: 100%; /* full width so text is clearly centered */
+  margin: 12px 0;
   font-size: 24px;
 }
 
@@ -298,12 +360,65 @@ img {
   margin: 0 auto 12px;
 }
 
+/* Brandon-specific photo offset */
+.team-member.brandon .photo {
+  margin-top: 18px;
+}
+
 .photo img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center; /* center focal point by default */
 }
 
+/* Brandon-specific image focal-point so his head isn't cropped */
+.team-member.brandon .photo img {
+  object-position: center 18%; /* nudge image down to reveal head */
+}
+.asteric {
+    font-size: 0.85em; /* smaller than .label */
+    line-height: 1.2;
+    padding: 4px 0 0;
 
+}
 
+/* Graph / Chart container and image styles */
+.graph-container {
+  width: 100%;
+  max-width: 1100px; /* matches stats content width */
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+.graph-figure {
+  margin: 0;
+  width: 100%;
+}
+.graph-img {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  background: #fff;
+}
+.graph-figure figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.6rem;
+  color: #333;
+
+}
+
+@media (max-width: 700px) {
+  .graph-img {
+    max-height: 320px;
+  }
+}

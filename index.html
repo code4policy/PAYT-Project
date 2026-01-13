@@ -61,6 +61,56 @@
                         </div>
                     </div>
 <!-- Section: PAYT Results in Other Municipalities -->
+            <section class="stats-fullpage">
+                <div class="sectionbanner">PAYT Results in Other Massachusetts Municipalities</div>
+
+                <div class="stats-row three-up">
+                    <div class="stat-card">
+                        <div class="label">On average, Hinsdale's per household tonnage reduced by </div>
+                        <div class="number">.4 metric tons</div>
+                        <div class="asteric">within a 5 year time period of implementing PAYT.</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">On average, Peru's per household tonnage reduced by</div>
+                        <div class="number"> .075 metric tons</div>
+                        <div class="asteric">within a 5 year time period of implementing PAYT</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">On average, Heath's per household tonnage reduced by</div>
+                        <div class="number"> .36 metric tons</div>
+                        <div class="asteric">within a 5 year time period of implementing PAYT</div>
+                    </div>
+                </div>
+
+                <div class="stats-row centered two-up">
+                    <div class="stat-card">
+                        <div class="label">On average, Chicopee's per household tonnage reduced by</div>
+                        <div class="number">0.12 metric tons</div>
+                        <div class="asteric">within a 5 year time period of implementing PAYT</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">On average, Harvard's per household tonnage reduced by</div>
+                        <div class="number">0.34 metric tons</div>
+                        <div class="asteric">within a 5 year time period of implementing PAYT</div>
+                    </div>
+                </div>
+                <div class="disclaim-banner">Pre-Post Effect of PAYT Within a 5-year Time Period</div>
+
+            <div class="graph-container">
+                <figure class="graph-figure">
+                    <img class="graph-img" src="data/payt_panels.png" alt="Pre-post effect of PAYT">
+                    <figcaption>Data Sourced: Massachusetts Department of Environmental Protection's 2024 Municipal Solid Waste and Recycling Survey, Massachusetts Department of Revenue, & Massachusetts Municipal PAYT Programs June 2025 </figcaption>
+                </figure>
+            </div>
+
+                <!-- Methodology Banner -->
+                    <div class="method-banner">
+                        <button class="method-toggle" aria-expanded="false">Methodology:<span class="chev">▾</span></button>
+                        <div class="method-content" hidden>
+                    </div>
+                    
+        </div>
+            <div class="sectionbanner">Considerations for Designing Boston's PAYT Program</div>
             <div class="sectionbanner">Pay as You Throw in Massachusetts</div>
                 <ul>
                     <li>Types of PAYT Programs
@@ -81,6 +131,12 @@
                     </li>
                     <li>To properly measure the efficacy of Pay as You Throw, we recommend calculating the total tonnage of recycling contamination (tons of solid waste disposed in the recycling stream) over time in municipalities that have implemented PAYT. To prove PAYT reduces solid waste disposal, we would need the total tonnage of solid waste to decrease and the recycling contamination rate to stay constant or decrease.</li>
                     <li> [CONSIDERATION HERE] </li>
+                    <li>Types of PAYT Programs
+                <ul>
+                    <li>Hybrid vs. Full PAYT</li>
+                    <li>Bag vs. Bin-based PAYT</li>
+                </ul>
+                    </li>
                 </ul>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -99,6 +155,26 @@
                         }
                     });
                 });
+
+                // set inline min-height on .stats-fullpage so it fills remaining viewport below its top
+                function setStatsFullpageHeight() {
+                    var section = document.querySelector('.stats-fullpage');
+                    if (!section) return;
+                    // measure distance from top of viewport to top of section
+                    var rect = section.getBoundingClientRect();
+                    // remaining viewport height below the section's top
+                    var remaining = Math.max(window.innerHeight - rect.top, Math.round(window.innerHeight * 0.5)); // at least 50% viewport
+                    // apply inline min-height to guarantee full-page feel
+                    section.style.minHeight = remaining + 'px';
+                    // debug: uncomment to see values in console
+                    // console.log('setStatsFullpageHeight', { rectTop: rect.top, remaining: remaining });
+                }
+
+                // run after full page load and on resize (and when fonts/images settle)
+                window.addEventListener('load', setStatsFullpageHeight);
+                window.addEventListener('resize', setStatsFullpageHeight);
+                // run shortly after DOM ready in case load already occurred
+                setTimeout(setStatsFullpageHeight, 120);
             });
         </script>
 </body>
