@@ -12,6 +12,8 @@ body {
 :root {
   /* Vertical space to subtract from 100vh to account for banners/header above the section */
   --stats-top-offset: 140px; /* adjust if headers/banners change size */
+  --section-gap: 2rem; /* vertical space used between stats rows and method banners */
+  --list-gap: 0.25rem; /* vertical spacing between list items — tweak this to make bullets tighter/looser */
 }
 
 h1 {
@@ -51,8 +53,29 @@ ul {
   padding-left: 20px;
 }
 
+/* Use a variable for list spacing so we can tweak it globally */
 li {
-  margin: 0 0 0 0;
+  margin: 0;
+  padding-block: var(--list-gap);
+  line-height: 1.4;
+}
+
+/* Remove default paragraph margins inside list items so spacing is consistent */
+li > p {
+  margin: 0;
+}
+
+/* Tighten nested list spacing and remove extra block padding at the start */
+ul ul {
+  padding-left: 1rem;
+  margin: 0;
+  padding-block-start: 0;
+  padding-block-end: 0;
+}
+
+/* Use smaller padding for nested list items so their rhythm matches top-level lists */
+ul ul li {
+  padding-block: calc(var(--list-gap) * 0.5); /* nested items are 50% of top-level gap */
 }
 
 /* MAIN PAGE STYLES*/
@@ -119,6 +142,7 @@ li {
     min-height: calc(100vh - 180px);
     padding: 12px;
   }
+  margin-bottom: 10px;
 }
 
 .stat-card {
@@ -149,6 +173,8 @@ li {
   font-size: 18px;
   color: #000000;
   text-align: center;
+  /* add vertical padding so labels have more breathing room inside the card */
+  padding: 6px 0;
 }
 
 /* Back link spacing: remove default paragraph top margin so link sits closer to cards */
@@ -172,6 +198,11 @@ li {
   background: #A51C30;
   color: #ffffff;
   text-align: left;
+  /* make banner text more prominent */
+  font-size: 18px;
+  /* add vertical spacing between banners */
+  margin-top: 40px;
+  margin-bottom: 10px;
   padding: 8px 10px;
   width: 100%;
   box-sizing: border-box;
@@ -195,8 +226,14 @@ li {
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 8px;
-  margin: 2px 0 2px; 
+  margin-top: var(--section-gap);
+  margin-bottom: 0;
   font-size: 15px;
+}
+
+/* If a method-banner sits inside a .stats-row, the row gap should control spacing instead */
+.stats-row .method-banner {
+  margin-top: 0;
 }
 
 .method-toggle {
