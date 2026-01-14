@@ -20,7 +20,8 @@
 
   --body-color: var(--support-gray-1);
   --brand-navy: var(--charles-blue);
-  --top-banner-height: 36px; /* height of the full-bleed top banner (reduced) */
+  --top-banner-height: 39px; /* tiny bump to better match screenshot */
+  --header-height: 64px; /* height reserved for the white menu bar */
   --heading-color: var(--brand-navy);
 }
 
@@ -30,7 +31,7 @@ html {
 }
 
 body {
-  padding: calc(24px + var(--top-banner-height)) 20px 24px 20px;
+  padding: calc(24px + var(--top-banner-height) + var(--header-height)) 20px 24px 20px;
   box-sizing: border-box;
   max-width: 1100px;
   margin: 0 auto;
@@ -272,11 +273,11 @@ ul ul li {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 8px;
+  padding: 0 12px;
   box-sizing: border-box;
   font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 13px; /* keep banner text size */
   z-index: 9999;
 }
 
@@ -296,8 +297,67 @@ ul ul li {
 }
 
 .disclaim-banner .banner-text {
+  line-height: 1; /* keep text vertically aligned inside the taller banner */
   display: inline-block;
   vertical-align: middle;
+}
+
+.disclaim-banner .banner-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Main header (white menu bar) placed below the top banner */
+.top-header {
+  width: 100vw; /* span the viewport */
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  position: fixed;
+  top: var(--top-banner-height);
+  height: var(--header-height);
+  z-index: 9998;
+  /* subtle shadow to match screenshot */
+  box-shadow: 0 2px 6px rgba(9,31,47,0.12);
+}
+.top-header .header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.site-logo {
+  height: 44px;
+  width: auto;
+  display: block;
+  border-radius: 0;
+  overflow: visible;
+}
+.site-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  align-items: center; /* vertically center nav items */
+  height: 100%;
+}
+.site-nav-list li a {
+  font-family: var(--font-heading);
+  font-weight: 400; /* Montserrat regular */
+  text-transform: uppercase;
+  color: var(--brand-navy);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  line-height: 1; /* keep text vertically centered within the header */
+}
+.site-nav-list li a:hover {
+  text-decoration: underline;
 }
 
 .sectionbanner {
