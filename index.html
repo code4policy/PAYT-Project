@@ -234,6 +234,52 @@
                 window.addEventListener('resize', setStatsFullpageHeight);
                 // run shortly after DOM ready in case load already occurred
                 setTimeout(setStatsFullpageHeight, 120);
+
+                // Hide the nav when its contents no longer fit (prevents words being cut off)
+                function debounce(fn, wait) {
+                    var t;
+                    return function () { clearTimeout(t); t = setTimeout(fn, wait); };
+                }
+
+                function updateNavVisibility() {
+                    var navList = document.querySelector('.site-nav-list');
+                    var headerInner = document.querySelector('.header-inner');
+                    if (!navList || !headerInner) return;
+                    // ensure visible for measurement
+                    navList.style.display = '';
+                    navList.removeAttribute('aria-hidden');
+
+                    // measure nav's natural width
+                    var naturalWidth = navList.scrollWidth;
+
+                    // compute available space for nav: from nav's left edge to header-inner right edge
+                    var headerRect = headerInner.getBoundingClientRect();
+                    var navRect = navList.getBoundingClientRect();
+                    var available = Math.max(0, headerRect.right - navRect.left - 12); // small margin
+
+                    // Only auto-hide on reasonably narrow viewports to avoid unexpected hiding on desktop
+                    var smallViewportThreshold = 980; // px
+
+                    var willOverflow = naturalWidth > (available - 2);
+
+                    if (willOverflow && window.innerWidth <= smallViewportThreshold) {
+                        navList.style.display = 'none';
+                        navList.setAttribute('aria-hidden', 'true');
+                    } else {
+                        navList.style.display = '';
+                        navList.setAttribute('aria-hidden', 'false');
+                    }
+                }
+
+                var debouncedNavCheck = debounce(updateNavVisibility, 100);
+                // run on load, resize, and once fonts are ready (font load can change measurements)
+                window.addEventListener('load', debouncedNavCheck);
+                window.addEventListener('resize', debouncedNavCheck);
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(debouncedNavCheck);
+                }
+                // quick run after DOM ready to catch initial state
+                setTimeout(debouncedNavCheck, 200);
             });
         </script>
 </body>

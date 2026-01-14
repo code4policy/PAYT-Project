@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@200;300;400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@200;300;400;500;700;800&display=swap');
 
 :root {
   --font-body: "Lora", serif;
@@ -331,6 +331,14 @@ ul ul li {
   height: 100%;
   box-sizing: border-box;
 }
+
+/* Ensure the menu bar uses Montserrat regular */
+.top-header,
+.top-header .header-inner,
+.site-nav-list li a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500; /* Montserrat Medium */
+}
 .site-logo {
   height: 22px;
   width: auto;
@@ -341,26 +349,38 @@ ul ul li {
 .site-nav-list {
   list-style: none;
   display: flex;
-  gap: 28px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   align-items: center; /* vertically center nav items */
   height: var(--header-height);
 }
 .site-nav-list li a {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%; /* fill the nav list so vertical centering matches header */
   box-sizing: border-box;
-  height: var(--header-height); /* fill the header so vertical centering is exact */
-  padding: 0 10px; /* horizontal spacing between items */
+  padding: 0 6px; /* horizontal spacing between items */
   font-family: var(--font-heading);
   font-weight: 400; /* Montserrat regular */
   text-transform: uppercase;
   color: var(--brand-navy);
   text-decoration: none;
   letter-spacing: 0.08em;
-  font-size: 14px;
+  font-size: 13px; /* match .disclaim-banner font-size */
+  /* downward nudge to position labels closer to the header bottom shadow */
+  transform: translateY(12px);
+}
+
+/* Hide the full menu when the viewport narrows to prevent wrapping of items.
+   Adjust the breakpoint (780px) if your nav starts wrapping at a different width. */
+/* Hide navigation only at very small widths to avoid wrapping.
+   Change the max-width value if you want the menu to disappear earlier/later. */
+@media (max-width: 480px) {
+  .site-nav-list {
+    display: none !important;
+  }
 }
 .site-nav-list li a:hover {
   text-decoration: underline;
@@ -665,4 +685,11 @@ img {
 /* Mobile: center nav on small screens */
 @media (max-width: 700px) {
   .site-nav { justify-content: center; }
+}
+
+/* Ensure nav is hidden on small screens even if earlier rules re-enable it */
+@media (max-width: 480px) {
+  .site-nav-list {
+    display: none !important;
+  }
 }
