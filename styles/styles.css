@@ -318,7 +318,8 @@ ul ul li {
   height: var(--header-height);
   z-index: 9998;
   /* subtle shadow to match screenshot */
-  box-shadow: 0 2px 6px rgba(9,31,47,0.12);
+  box-shadow: 0 4px 14px rgba(9,31,47,0.12) !important;
+  width: 100%;
 }
 .top-header .header-inner {
   max-width: 1100px;
@@ -331,7 +332,7 @@ ul ul li {
   box-sizing: border-box;
 }
 .site-logo {
-  height: 44px;
+  height: 22px;
   width: auto;
   display: block;
   border-radius: 0;
@@ -344,9 +345,15 @@ ul ul li {
   margin: 0;
   padding: 0;
   align-items: center; /* vertically center nav items */
-  height: 100%;
+  height: var(--header-height);
 }
 .site-nav-list li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: var(--header-height); /* fill the header so vertical centering is exact */
+  padding: 0 10px; /* horizontal spacing between items */
   font-family: var(--font-heading);
   font-weight: 400; /* Montserrat regular */
   text-transform: uppercase;
@@ -354,7 +361,6 @@ ul ul li {
   text-decoration: none;
   letter-spacing: 0.08em;
   font-size: 14px;
-  line-height: 1; /* keep text vertically centered within the header */
 }
 .site-nav-list li a:hover {
   text-decoration: underline;
