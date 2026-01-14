@@ -29,7 +29,7 @@ install.packages("patchwork")
 
 ```{r}
 
-data <- read_excel("/Users/brandonk28/Development/PAYT-Project/data/trashpopulations.xlsx")
+data <- read_excel("data/trashpopulations.xlsx")
 ```
 
 ```{r}
@@ -43,7 +43,7 @@ data <- data %>%
 ```
 
 ```{r}
-paystart <- read_excel("/Users/brandonk28/Development/PAYT-Project/data/paytstart.xlsx") %>%
+paystart <- read_excel("data/paytstart.xlsx") %>%
   clean_names() %>%
   mutate(municipality = tolower(municipality))
 ```
