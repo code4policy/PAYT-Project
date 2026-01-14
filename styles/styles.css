@@ -383,7 +383,8 @@ ul ul li {
   }
 }
 .site-nav-list li a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: var(--freedom-red);
 }
 
 .sectionbanner {
@@ -674,7 +675,8 @@ img {
 }
 .site-nav-list a:hover,
 .site-nav-list a:focus {
-  text-decoration: underline;
+  text-decoration: none;
+  color: var(--freedom-red);
 }
 
 @media (max-width: 600px) {
