@@ -1,28 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@200;300;400;700;800&display=swap');
+
+:root {
+  --font-body: "Lora", serif;
+  --font-heading: "Montserrat", sans-serif;
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  /* Boston.gov brand colors (from brand guidelines) */
+  --charles-blue: #091F2F; /* dark Charles Blue */
+  --optimistic-blue: #1871BD; /* bright link/button blue */
+  --freedom-red: #FB4D42; /* Freedom Trail Red */
+  --support-blue-1: #061622;
+  --support-blue-2: #0C2639;
+  --support-blue-3: #45789C;
+  --support-blue-4: #51ACFF;
+  --support-gray-1: #58585B; /* body copy gray */
+  --support-gray-2: #D2D2D2;
+  --support-gray-3: #E0E0E0;
+  --support-gray-4: #F2F2F2;
+
+  --body-color: var(--support-gray-1);
+  --brand-navy: var(--charles-blue);
+  --top-banner-height: 36px; /* height of the full-bleed top banner (reduced) */
+  --heading-color: var(--brand-navy);
+}
+
 html {
-  /* setting font & font size */
+  /* base font-size for rem calculations */
   font-size: 16px;
-  font-family: "Raleway", sans-serif;
 }
 
 body {
-  padding: 4px;
+  padding: calc(24px + var(--top-banner-height)) 20px 24px 20px;
   box-sizing: border-box;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  color: var(--body-color);
 }
 
 :root {
   /* Vertical space to subtract from 100vh to account for banners/header above the section */
   --stats-top-offset: 140px; /* adjust if headers/banners change size */
-  --section-gap: 2rem; /* vertical space used between stats rows and method banners */
-  --list-gap: 0.25rem; /* vertical spacing between list items — tweak this to make bullets tighter/looser */
+  --section-gap: 2.5rem; /* vertical space used between stats rows and method banners */
+  --list-gap: 0.5rem; /* vertical spacing between list items — tweak this to make bullets tighter/looser */
 }
 
 h1 {
-  margin: 0;
-  padding: 30px 10px;
-  color: darkolivegreen;
-  text-shadow: 3px 3px 1px navajowhite;
-  font-size: 40px;
-  text-align: center;
+  margin: 36px 0 14px 0;
+  padding: 6px 4px 6px;
+  text-align: left;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--heading-color);
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /* responsive size: match Boston hero scale */
+  font-size: clamp(40px, 7.5vw, 96px);
+}
+
+h2 {
+  margin: 0 0 8px;
+  padding: 0 8px;
+  font-size: 22px;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+h3 {
+  margin: 0 0 8px;
+  padding: 0 8px;
+  text-align: left;
+  color: var(--freedom-red);
+  text-decoration: underline;
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+h4 {
+  margin: 0 0 8px;
+  padding: 0 8px;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 /* Headings inside "team-member" cards, h2 = our names */
@@ -45,6 +111,15 @@ h4 {
   margin: 0 0 8px;
   padding: 0 8px;
   text-align: left;
+}
+
+/* Body copy (paragraphs, captions, list text) */
+p, li, figcaption {
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  color: var(--body-color);
+  margin: 0 0 1rem;
 }
 
 /* General list reset to reduce large default browser spacing */
@@ -85,9 +160,9 @@ ul ul li {
   gap: 1.5rem; /* row-gap column-gap */
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 8px;
+  padding: 8px 0;
   box-sizing: border-box;
-  margin-bottom: 4px;
+  margin-bottom: 16px;
   align-items: stretch;
 
 }
@@ -152,9 +227,9 @@ ul ul li {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  border: 2px solid #ddd;
-  background: #fff;
-  padding: 10px;
+  border: 2px solid var(--support-gray-2);
+  background: #ffffff;
+  padding: 18px;
   border-radius: 8px;
   flex: 1 1 320px;
   min-width: 220px;
@@ -162,16 +237,16 @@ ul ul li {
 }
 
 .stat-card .number {
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 700;
-  color: darkolivegreen;
+  color: var(--optimistic-blue);
   text-align: center;
   padding: 4px 0 0;
 }
 
 .stat-card .label {
-  font-size: 18px;
-  color: #000000;
+  font-size: 16px;
+  color: var(--brand-navy);
   text-align: center;
   /* add vertical padding so labels have more breathing room inside the card */
   padding: 6px 0;
@@ -185,33 +260,82 @@ ul ul li {
 
 /* Top banner: simple, full-width within body (no viewport trick) */
 .disclaim-banner {
-  background: darkolivegreen;
+  /* pinned full-bleed top bar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--brand-navy);
+  color: #ffffff;
+  text-align: center;
+  height: var(--top-banner-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  box-sizing: border-box;
+  font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  z-index: 9999;
+}
+
+/* Logo inside the top banner */
+.disclaim-banner .banner-logo {
+  height: calc(var(--top-banner-height) * 0.50);
+  width: auto;
+  margin-right: 12px;
+  display: inline-block;
+}
+
+/* override global img rounding for the banner logo so the SVG displays cleanly */
+.disclaim-banner .banner-logo {
+  border-radius: 0;
+  overflow: visible;
+  vertical-align: middle;
+}
+
+.disclaim-banner .banner-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sectionbanner {
+  background: var(--freedom-red);
   color: #ffffff;
   text-align: left;
-  padding: 8px 10px;
+  /* make banner text more prominent */
+  font-size: 16px;
+  /* match Boston headings: heading font, weight and uppercase spacing */
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  /* add vertical spacing between banners */
+  margin-top: 24px;
+  margin-bottom: 12px;
+  padding: 10px 18px;
+  border-radius: 4px;
   width: 100%;
   box-sizing: border-box;
   font-weight: 600;
 }
 
-.sectionbanner {
-  background: #A51C30;
-  color: #ffffff;
+/* Small inline section note used near figures (not the global top banner) */
+.section-note {
+  background: transparent;
+  color: var(--body-color);
   text-align: left;
-  /* make banner text more prominent */
-  font-size: 18px;
-  /* add vertical spacing between banners */
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 8px 10px;
+  padding: 8px 0;
   width: 100%;
   box-sizing: border-box;
   font-weight: 600;
+  font-family: var(--font-heading);
 }
 
 /* Banner link color */
 .disclaim-banner a {
-  color: navajowhite;
+  color: #ffffff;
   text-decoration: underline;
 }
 
@@ -226,7 +350,7 @@ ul ul li {
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 12px;
-  margin-top: var(--section-gap);
+  margin-top: calc(var(--section-gap) - 0.5rem);
   margin-bottom: 0;
   font-size: 15px;
 }
@@ -239,9 +363,9 @@ ul ul li {
 .method-toggle {
   appearance: none;
   -webkit-appearance: none;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  color: #333;
+  background: var(--support-gray-4);
+  border: 1px solid var(--support-gray-2);
+  color: var(--brand-navy);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -257,15 +381,15 @@ ul ul li {
   max-height: 0;
   transition: max-height 0.28s ease, padding 0.28s ease;
   background: #ffffff;
-  border-left: 1px solid #eee;
-  border-right: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-left: 1px solid var(--support-gray-3);
+  border-right: 1px solid var(--support-gray-3);
+  border-bottom: 1px solid var(--support-gray-3);
   border-radius: 0 0 6px 6px;
   padding: 0; /* no padding when collapsed to avoid reserved space */
 }
 
 .method-content.open {
-  padding: 12px;
+  padding: 16px;
   max-height: 480px; /* generous limit for content */
 }
 
@@ -329,9 +453,9 @@ img {
 /* Card content spacing */
 .team-member p {
   margin: 0 0 12px;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #111;
+  font-size: inherit;
+  line-height: var(--body-line-height);
+  color: var(--body-color);
   text-align: left;
   padding: 12px 20px;
 }
@@ -421,4 +545,58 @@ img {
   .graph-img {
     max-height: 320px;
   }
+}
+
+/* Top site navigation: simple, compact bar matching Boston style rhythm */
+.site-nav {
+  display: flex;
+  justify-content: flex-end;
+  background: #ffffff;
+  border-bottom: none;
+  padding: 12px 20px;
+  margin-bottom: 26px;
+  box-sizing: border-box;
+}
+.site-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  margin: 0;
+  padding: 0 12px;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400; /* Montserrat Regular */
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+}
+
+/* Ensure links explicitly use the sans-serif Montserrat to override inheritance */
+.site-nav-list a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  padding: 2px 6px;
+}
+
+/* (removed vertical squash transform — nav uses natural font metrics) */
+.site-nav-list li { margin: 0; }
+.site-nav-list a {
+  color: var(--brand-navy);
+  text-decoration: none;
+  padding: 6px 8px;
+}
+.site-nav-list a:hover,
+.site-nav-list a:focus {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .site-nav { padding: 10px 0; }
+  .site-nav-list { gap: 14px; font-size: 12px; }
+}
+
+/* Mobile: center nav on small screens */
+@media (max-width: 700px) {
+  .site-nav { justify-content: center; }
 }
