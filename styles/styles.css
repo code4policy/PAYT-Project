@@ -1,28 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@400;700;800&display=swap');
+
+:root {
+  --font-body: "Lora", serif;
+  --font-heading: "Montserrat", sans-serif;
+  --body-font-size: 18px;
+  --body-line-height: 1.6;
+  --body-color: #111111;
+  --brand-navy: #072437; /* Boston brand-style navy */
+  --heading-color: var(--brand-navy);
+}
+
 html {
-  /* setting font & font size */
+  /* base font-size for rem calculations */
   font-size: 16px;
-  font-family: "Raleway", sans-serif;
 }
 
 body {
-  padding: 4px;
+  padding: 24px 20px;
   box-sizing: border-box;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  color: var(--body-color);
 }
 
 :root {
   /* Vertical space to subtract from 100vh to account for banners/header above the section */
   --stats-top-offset: 140px; /* adjust if headers/banners change size */
-  --section-gap: 2rem; /* vertical space used between stats rows and method banners */
-  --list-gap: 0.25rem; /* vertical spacing between list items — tweak this to make bullets tighter/looser */
+  --section-gap: 2.5rem; /* vertical space used between stats rows and method banners */
+  --list-gap: 0.5rem; /* vertical spacing between list items — tweak this to make bullets tighter/looser */
 }
 
 h1 {
-  margin: 0;
-  padding: 30px 10px;
-  color: darkolivegreen;
-  text-shadow: 3px 3px 1px navajowhite;
-  font-size: 40px;
-  text-align: center;
+  margin: 0 0 18px 0;
+  padding: 6px 4px 6px;
+  text-align: left;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--heading-color);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /* responsive size: match Boston hero scale */
+  font-size: clamp(32px, 6vw, 64px);
+}
+
+h2 {
+  margin: 0 0 8px;
+  padding: 0 8px;
+  font-size: 28px;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+h3 {
+  margin: 0 0 8px;
+  padding: 0 8px;
+  text-align: left;
+  color: rgb(176, 0, 0);
+  text-decoration: underline;
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+h4 {
+  margin: 0 0 8px;
+  padding: 0 8px;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 /* Headings inside "team-member" cards, h2 = our names */
@@ -45,6 +97,15 @@ h4 {
   margin: 0 0 8px;
   padding: 0 8px;
   text-align: left;
+}
+
+/* Body copy (paragraphs, captions, list text) */
+p, li, figcaption {
+  font-family: var(--font-body);
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  color: var(--body-color);
+  margin: 0 0 1rem;
 }
 
 /* General list reset to reduce large default browser spacing */
@@ -85,9 +146,9 @@ ul ul li {
   gap: 1.5rem; /* row-gap column-gap */
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 8px;
+  padding: 8px 0;
   box-sizing: border-box;
-  margin-bottom: 4px;
+  margin-bottom: 16px;
   align-items: stretch;
 
 }
@@ -154,7 +215,7 @@ ul ul li {
   box-sizing: border-box;
   border: 2px solid #ddd;
   background: #fff;
-  padding: 10px;
+  padding: 18px;
   border-radius: 8px;
   flex: 1 1 320px;
   min-width: 220px;
@@ -162,7 +223,7 @@ ul ul li {
 }
 
 .stat-card .number {
-  font-size: 25px;
+  font-size: 28px;
   font-weight: 700;
   color: darkolivegreen;
   text-align: center;
@@ -188,7 +249,7 @@ ul ul li {
   background: darkolivegreen;
   color: #ffffff;
   text-align: left;
-  padding: 8px 10px;
+  padding: 10px 16px;
   width: 100%;
   box-sizing: border-box;
   font-weight: 600;
@@ -201,9 +262,9 @@ ul ul li {
   /* make banner text more prominent */
   font-size: 18px;
   /* add vertical spacing between banners */
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 8px 10px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
   width: 100%;
   box-sizing: border-box;
   font-weight: 600;
@@ -226,7 +287,7 @@ ul ul li {
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 12px;
-  margin-top: var(--section-gap);
+  margin-top: calc(var(--section-gap) - 0.5rem);
   margin-bottom: 0;
   font-size: 15px;
 }
@@ -265,7 +326,7 @@ ul ul li {
 }
 
 .method-content.open {
-  padding: 12px;
+  padding: 16px;
   max-height: 480px; /* generous limit for content */
 }
 
@@ -329,9 +390,9 @@ img {
 /* Card content spacing */
 .team-member p {
   margin: 0 0 12px;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #111;
+  font-size: inherit;
+  line-height: var(--body-line-height);
+  color: var(--body-color);
   text-align: left;
   padding: 12px 20px;
 }
