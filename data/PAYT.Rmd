@@ -109,7 +109,7 @@ final_data_clean <- final_data %>%
 ```
 
 ```{r}
-#
+#do not inlcude bulky waste
 no_bulk <- final_data_clean %>%
   filter(does_trash_disposal_tonnage_include_bulky_waste == "No",
          payt_start_year != 1900,
@@ -160,8 +160,14 @@ difference <- pre5 %>%
   inner_join(post5, by = "municipality") %>%
   mutate(difference = mean_post5 - mean_pre5)
 
+pre5_avg <- pre5 %>%
+  summarize(overall_pre5 = mean(mean_pre5))
 
+post5_avg <- post5 %>%
+  summarize(overall_post5 = mean(mean_post5))
 
+overall_avg <- (post5_avg$overall_post5 - pre5_avg$overall_pre5) 
+overall_avg
 ```
 
 
@@ -205,7 +211,7 @@ p1 <- ggplot(hinsdale,
                width = 30),
     subtitle = "Years relative to PAYT start (Year 0)",
     x = "Years Since PAYT Implementation",
-    y = "Tonnage Per Household"
+    y = "Yearly Tonnage Per Household"
   ) +
   scale_y_continuous(limits = c(0, 1)) + 
   no_axes 
@@ -222,7 +228,7 @@ p2 <- ggplot(peru,
       width = 30),
     subtitle = "Years relative to PAYT start (Year 0)",
     x = "Years Since PAYT Implementation",
-    y = "Tonnage Per Household"
+    y = "Yearly Tonnage Per Household"
   ) +
   scale_y_continuous(limits = c(0, 1)) + 
   no_axes
@@ -240,7 +246,7 @@ p3 <- ggplot(heath,
       width = 30),
     subtitle = "Years relative to PAYT start (Year 0)",
     x = "Years Since PAYT Implementation",
-    y = "Tonnage Per Household"
+    y = "Yearly Tonnage Per Household"
   ) +
   scale_y_continuous(limits = c(0, 1)) + 
   no_axes
@@ -258,7 +264,7 @@ p4 <- ggplot(chicopee,
       width = 30),
     subtitle = "Years relative to PAYT start (Year 0)",
     x = "Years Since PAYT Implementation",
-    y = "Tonnage Per Household"
+    y = "Yearly Tonnage Per Household"
   ) +
   scale_y_continuous(limits = c(0, 1)) + 
   no_axes
@@ -275,7 +281,7 @@ p5 <- ggplot(harvard,
       width = 30),
     subtitle = "Years relative to PAYT start (Year 0)",
     x = "Years Since PAYT Implementation",
-    y = "Tonnage Per Household"
+    y = "Yearly Tonnage Per Household"
   ) +
   scale_y_continuous(limits = c(0, 1)) + 
   no_axes
@@ -317,7 +323,7 @@ final <- ggdraw() +
     size = 12
   ) +
   draw_label(
-    "Tonnage Per Household",
+    "Yearly Tonnage Per Household",
     x = 0.02, y = 0.52,
     angle = 90,
     vjust = 0.5,
@@ -330,98 +336,72 @@ ggsave("payt_panels.png", final, width = 10, height = 7, dpi = 300)
 
 
 
-
-
 ```{r}
-plot_grid(
-  p1, p2,
-  p3, p4,
-  p5,
-  ncol = 2,
-  align = "hv"
-) 
-```
+#city of malden revenue(asteric: does include bulky waste given data: city of boston would have to consider this)
 
-```{r}
-ggplot(peru,
-       aes(x = years_payt,
-           y = trash_disposal_tonnage)) +
-  geom_line(linewidth = 1) +
-  geom_point() +
-  geom_vline(xintercept = 0, linetype = "dashed") +
-  labs(
-    title = "Peru Total Household Waste Tonnage Around PAYT Implementation",
-    subtitle = "Years relative to PAYT start (Year 0)",
-    x = "Years Since PAYT Implementation",
-    y = "Total Household Waste Tonnage"
-  ) +
-  theme_minimal() + 
-  scale_y_continuous(limits = c(0, 250))
-```
+malden <- final_data_clean %>%
+  filter(municipality == "malden")
 
-```{r}
-ggplot(heath,
-       aes(x = years_payt,
-           y = trash_disposal_tonnage)) +
-  geom_line(linewidth = 1) +
-  geom_point() +
-  geom_vline(xintercept = 0, linetype = "dashed") +
-  labs(
-    title = "Heath Total Household Waste Tonnage Around PAYT Implementation",
-    subtitle = "Years relative to PAYT start (Year 0)",
-    x = "Years Since PAYT Implementation",
-    y = "Total Household Waste Tonnage"
-  ) +
-  theme_minimal() + 
-  scale_y_continuous(limits = c(0, 500))
+m_data <- read_excel("/Users/brandonk28/Development/PAYT-Project/data/malden_data.xlsx") %>%
+  clean_names() %>%
+  select(-c(x2,
+            x2020, 
+            x2019,
+            x2021,
+            x2024_anticipated,
+            x11)) 
+
 
 
 
 ```
-
-
-
 ```{r}
-ggplot(chicopee,
-       aes(x = years_payt,
-           y = trash_disposal_tonnage)) +
-  geom_line(linewidth = 1) +
-  geom_point() +
-  geom_vline(xintercept = 0, linetype = "dashed") +
-  labs(
-    title = "Chicopee Total Household Waste Tonnage Around PAYT Implementation",
-    subtitle = "Years relative to PAYT start (Year 0)",
-    x = "Years Since PAYT Implementation",
-    y = "Tonnage Per Household"
-  ) +
-  theme_minimal() + 
-  scale_y_continuous(limits = c(0, 30000))
+#rename columns
+colnames(m_data) <- c("source",
+                      "2022", "2023", "2024", "2025")
+                      
+                      
 
+#transform data from wide to long
+m_data_long <- m_data %>%
+  pivot_longer(cols = c("2022", "2023", "2024", "2025"),
+               names_to = "year",
+               values_to = "revenue")
+
+colnames(m_data_long) <- c("source",
+                      "survey_year",
+                      "revenue")
+
+m_data_long <- m_data_long %>%
+  mutate(survey_year = as.numeric(survey_year))
 ```
 
 
 ```{r}
 
-ggplot(harvard,
-       aes(x = years_payt,
-           y = tonnage_per_hh)) +
-  geom_line(linewidth = 1) +
-  geom_point() +
-  geom_vline(xintercept = 0, linetype = "dashed") +
-  labs(
-    title = "Harvard Total Household Waste Tonnage Around PAYT Implementation",
-    subtitle = "Years relative to PAYT start (Year 0)",
-    x = "Years Since PAYT Implementation",
-    y = "Total Household Waste Tonnage"
-  ) +
-  theme_minimal() + 
-  scale_y_continuous(limits = c(0, 1))
+#make sure to include # of participating households for malden as a caveat: very dense city with a smaller population size than city of boston 
+
+full_malden <- malden %>%
+  inner_join(m_data_long, by = "survey_year") %>%
+  group_by(source, survey_year) %>%
+  summarize(
+    hh_revenue = revenue / households_served_by_municipal_trash_program)
+  
+
+  
+
+
+
 
 
 ```
 
-
 ```{r}
+group
+```
+
+
+`
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
