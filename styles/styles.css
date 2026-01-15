@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@200;300;400;500;700;800&display=swap');
-
 :root {
-  --font-body: "Lora", serif;
-  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Lora", Georgia, "Times New Roman", serif;
+  --font-heading: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --body-font-size: 16px;
   --body-line-height: 1.6;
   /* Boston.gov brand colors (from brand guidelines) */
@@ -355,7 +353,7 @@ ul ul li {
   min-height: 40px;
   padding: 8px 12px;
   box-sizing: border-box;
-  font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: 13px; /* keep banner text size */
   z-index: 9999;
@@ -418,8 +416,8 @@ ul ul li {
 .top-header,
 .top-header .header-inner,
 .site-nav-list li a {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400; /* Montserrat Regular */
+  font-family: var(--font-heading);
+  font-weight: 400;
 }
 .site-logo {
   height: 22px;
