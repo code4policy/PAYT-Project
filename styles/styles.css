@@ -26,6 +26,17 @@
   --heading-color: var(--brand-navy);
 }
 
+/* Make general hyperlinks use optimistic blue by default. Specific contexts
+   (e.g. the disclaimer banner) override this where needed. */
+a, a:link, a:visited {
+  color: var(--optimistic-blue);
+}
+
+/* Hover/focus state for all links (preserve disclaimer overrides via specificity) */
+a:hover, a:focus {
+  color: var(--freedom-red);
+}
+
 html {
   /* base font-size for rem calculations */
   font-size: 16px;
@@ -34,16 +45,35 @@ html {
 body {
   /* reserve space at the top for the fixed banner + header across all pages */
   padding-top: calc(24px + var(--site-top-height));
-  padding-right: clamp(32px, 3vw, 20px);
-  padding-bottom: 24px;
-  padding-left: clamp(32px, 3vw, 20px);
+  /* side gutters: min = 32px, max = 48px — increased so text isn't cramped */
+  padding-right: clamp(32px, 1.0vw, 48px);
+  padding-bottom: 20px;
+  padding-left: clamp(32px, 1.0vw, 48px);
   box-sizing: border-box;
+  /* widen content area so edges are nearer the viewport */
   max-width: 1100px;
   margin: 0 auto;
   font-family: var(--font-body);
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
   color: var(--body-color);
+}
+
+/* Keep gutters roomier on medium/smaller desktop windows where clamp() may
+   shrink the visible spacing — increase padding when viewport is <= 1200px */
+@media (max-width: 1200px) {
+  body {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+/* On small/mobile viewports use a slightly smaller but comfortable gutter */
+@media (max-width: 600px) {
+  body {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 :root {
@@ -54,7 +84,7 @@ body {
 }
 
 h1 {
-  margin: 36px 0 14px 0;
+  margin: 36px 0 18px 0; /* tiny increase below h1 */
   padding: 6px 8px;
   text-align: left;
   text-transform: uppercase;
@@ -70,9 +100,10 @@ h1 {
 }
 
 h2 {
-  margin: 0 0 8px;
+  margin: 0 0 18px;
   padding: 0 8px;
-  font-size: 22px;
+  /* slightly smaller responsive h2 scale to match target page */
+  font-size: clamp(18px, 2.6vw, 28px);
   text-align: left;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -96,13 +127,7 @@ h4 {
   font-weight: 700;
 }
 
-/* Headings inside "team-member" cards, h2 = our names */
-h2 {
-  margin: 0 0 8px;
-  padding: 0 8px;
-  font-size: 24px;
-  text-align: left;
-}
+/* Headings inside "team-member" cards are handled by .team-member h2 below */
 
 h3 {
   margin: 0 0 8px;
@@ -126,7 +151,7 @@ p, li, figcaption {
   font-family: var(--font-body);
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
-  color: var(--body-color);
+  color: #58585B; /* unified body paragraph color */
   margin: 0 0 1rem;
   padding: 0 8px;
 }
@@ -134,10 +159,49 @@ p, li, figcaption {
 /* Intro text styling - italicized text under h1 with line underneath */
 p.intro-text {
   font-style: italic;
-  font-size: 20px;
+  font-size: clamp(var(--body-font-size), 3.2vw, 24px);
   padding: 0 8px 1rem 8px;
-  border-bottom: 1px solid var(--support-gray-2);
+  line-height: 2; /* increased for improved readability */
+  color: var(--heading-color);
   margin-bottom: 1.5rem;
+}
+
+/* Decorative squiggly divider used between intro text and the first h2 */
+.squiggle {
+  /* Align the squiggle pattern with the site's left/right gutters so it
+     visually lines up with body text. Use the same gutter values and media
+     overrides so the offsets match exactly. */
+  display: block;
+  width: 100%;
+  max-width: 1100px; /* same content width as body */
+  margin: 8px auto 32px; /* center within the content column; increased bottom gap */
+  /* make the visual divider shorter to match the reference */
+  height: 12px;
+  box-sizing: border-box;
+  /* create matching left/right padding equal to the body's gutters so the
+     tiled SVG starts exactly where the text content begins */
+  padding-left: clamp(32px, 1.0vw, 48px);
+  padding-right: clamp(32px, 1.0vw, 48px);
+  background-image: url("../images/squiggle.svg");
+  background-repeat: repeat-x;
+  background-position: left center;
+  /* make each tile narrow so the squiggle has many bumps across the content width */
+  background-size: 28px 100%;
+}
+
+/* Match the body gutter overrides so the squiggle padding remains identical */
+@media (max-width: 1200px) {
+  .squiggle {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .squiggle {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 /* General list reset to reduce large default browser spacing */
@@ -516,6 +580,8 @@ ul ul li {
   margin: 12px 0;
   font-size: 24px;
 }
+/* give team-member headings more space below to match other h2 spacing */
+.team-member h2 { margin-bottom: 24px; }
 
 /* allows image to be responsive to the "card" size when screen size changes! */
 img {
@@ -737,7 +803,7 @@ img {
 /* (removed vertical squash transform — nav uses natural font metrics) */
 .site-nav-list li { margin: 0; }
 .site-nav-list a {
-  color: var(--brand-navy);
+  color: var(--optimistic-blue);
   text-decoration: none;
   padding: 0 6px;
 }
