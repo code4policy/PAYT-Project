@@ -676,15 +676,14 @@ img {
   margin: 0;
   width: 100%;
 }
-.graph-img {
+#d3-graph {
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+#d3-graph svg {
+  max-width: 100%;
   height: auto;
-  max-height: 480px;
-  object-fit: contain;
-  display: block;
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  background: #fff;
 }
 .graph-figure figcaption {
   margin-top: 8px;
