@@ -32,7 +32,11 @@ html {
 }
 
 body {
-  padding: 24px clamp(32px, 3vw, 20px) 24px clamp(32px, 3vw, 20px);
+  /* reserve space at the top for the fixed banner + header across all pages */
+  padding-top: calc(24px + var(--site-top-height));
+  padding-right: clamp(32px, 3vw, 20px);
+  padding-bottom: 24px;
+  padding-left: clamp(32px, 3vw, 20px);
   box-sizing: border-box;
   max-width: 1100px;
   margin: 0 auto;
