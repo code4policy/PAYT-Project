@@ -103,8 +103,8 @@ h1 {
   font-size: clamp(28px, 5.5vw, 64px);
 }
 
-h2 {
-  margin: 0 0 18px;
+ h2 {
+  margin: 24px 0 18px;
   padding: 0 8px 0 8px;
   /* slightly smaller responsive h2 scale to match target page */
   font-size: clamp(18px, 2.6vw, 28px);
