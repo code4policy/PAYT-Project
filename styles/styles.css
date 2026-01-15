@@ -830,6 +830,66 @@ img {
   .site-nav { justify-content: center; }
 }
 
+/* Stat Blocks - Boston.gov style card layout */
+.stat-blocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 40px 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.stat-block {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 24px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-block:nth-child(5) {
+  grid-column: 1 / -1;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.stat-block:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--brand-blue);
+}
+
+.block-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--brand-navy);
+  margin: 0 0 12px 0;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.block-reduction {
+  font-size: 18px;
+  color: var(--optimistic-blue);
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+.reduction-percent {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.block-description {
+  font-size: 14px;
+  color: #666;
+  margin: 12px 0 0 0;
+  line-height: 1.5;
+}
+
 /* Ensure nav is hidden on small screens even if earlier rules re-enable it */
 @media (max-width: 480px) {
   .site-nav-list {
