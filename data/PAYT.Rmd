@@ -158,7 +158,8 @@ pre5 <- balanced_data %>%
  
 difference <- pre5 %>%
   inner_join(post5, by = "municipality") %>%
-  mutate(difference = mean_post5 - mean_pre5)
+  mutate(difference = mean_post5 - mean_pre5) %>%
+  mutate(percent_change = (difference / mean_pre5) * 100)
 
 pre5_avg <- pre5 %>%
   summarize(overall_pre5 = mean(mean_pre5))
@@ -386,18 +387,16 @@ full_malden <- malden %>%
   group_by(source, survey_year) %>%
   summarize(
     hh_revenue = revenue / households_served_by_municipal_trash_program)
-  
-
-  
-
-
-
 
 
 ```
 
 ```{r}
-group
+boston_bagrev_2024 <- 47.11 * 272500
+boston_tagrev_2024 <- 31.2615058 * 272500
+
+boston_bagrev_2024
+boston_tagrev_2024
 ```
 
 
