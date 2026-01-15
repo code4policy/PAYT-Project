@@ -911,6 +911,38 @@ img {
   .site-nav { justify-content: center; }
 }
 
+.impact-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  align-items: start;
+  margin: 24px 0 12px;
+}
+
+.impact-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.impact-compare .sectionbanner {
+  margin-bottom: 0; /* keep banner and cards tightly stacked */
+}
+
+.impact-compare .stat-blocks {
+  margin: 10px 0 10px; /* cap space under banner at ~10px */
+  padding: 0; /* remove padding so cards extend to match banner width */
+}
+
+.impact-compare .stat-blocks.stack {
+  grid-auto-rows: 1fr; /* make each row the same height within a column */
+  gap: 16px;
+}
+
+.impact-compare .stat-blocks.stack .stat-block {
+  min-height: 180px; /* normalize heights to the tallest card */
+}
+
 /* Stat Blocks - Boston.gov style card layout */
 .stat-blocks {
   display: grid;
@@ -921,6 +953,10 @@ img {
   margin-left: auto;
   margin-right: auto;
   padding: 0 20px;
+}
+
+.stat-blocks.stack {
+  grid-template-columns: 1fr;
 }
 
 .stat-block {
@@ -946,7 +982,7 @@ img {
   font-size: 20px;
   font-weight: 700;
   color: var(--brand-navy);
-  margin: 0 0 12px 0;
+  margin: 0 0 10px 0;
   font-family: var(--font-heading);
   text-transform: uppercase;
   text-decoration: none;
@@ -955,7 +991,7 @@ img {
 .block-reduction {
   font-size: 18px;
   color: var(--optimistic-blue);
-  margin: 8px 0;
+  margin: 10px 0;
   font-weight: 500;
 }
 
@@ -967,7 +1003,7 @@ img {
 .block-description {
   font-size: 14px;
   color: #666;
-  margin: 12px 0 0 0;
+  margin: 10px 0 0 0;
   line-height: 1.5;
 }
 
