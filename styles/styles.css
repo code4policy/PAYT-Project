@@ -26,6 +26,17 @@
   --heading-color: var(--brand-navy);
 }
 
+/* Make general hyperlinks use optimistic blue by default. Specific contexts
+   (e.g. the disclaimer banner) override this where needed. */
+a, a:link, a:visited {
+  color: var(--optimistic-blue);
+}
+
+/* Hover/focus state for all links (preserve disclaimer overrides via specificity) */
+a:hover, a:focus {
+  color: var(--freedom-red);
+}
+
 html {
   /* base font-size for rem calculations */
   font-size: 16px;
@@ -126,7 +137,7 @@ p, li, figcaption {
   font-family: var(--font-body);
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
-  color: var(--body-color);
+  color: #58585B; /* unified body paragraph color */
   margin: 0 0 1rem;
   padding: 0 8px;
 }
@@ -737,7 +748,7 @@ img {
 /* (removed vertical squash transform — nav uses natural font metrics) */
 .site-nav-list li { margin: 0; }
 .site-nav-list a {
-  color: var(--brand-navy);
+  color: var(--optimistic-blue);
   text-decoration: none;
   padding: 0 6px;
 }
