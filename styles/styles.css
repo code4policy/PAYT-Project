@@ -593,9 +593,12 @@ ul ul li {
   width: 100%; /* full width so text is clearly centered */
   margin: 12px 0;
   font-size: 24px;
+  margin-bottom: 24px;
+  /* allow long names to wrap instead of overflowing */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
-/* give team-member headings more space below to match other h2 spacing */
-.team-member h2 { margin-bottom: 24px; }
 
 /* allows image to be responsive to the "card" size when screen size changes! */
 img {
@@ -624,6 +627,10 @@ img {
   box-sizing: border-box;
   border: 1px solid #ddd;
   background: #fff;
+  /* prevent any child text from overflowing the card */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Ensure images fill card width and don't stretch height */
@@ -643,6 +650,10 @@ img {
   color: var(--body-color);
   text-align: left;
   padding: 12px 20px;
+  /* ensure paragraph text wraps inside the card */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Push email to bottom so cards align visually */
@@ -650,6 +661,10 @@ img {
   margin-top: auto;
   font-weight: 600;
   color: darkolivegreen;
+  /* allow long email addresses to break and wrap inside the card */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Small-screen adjustments */
