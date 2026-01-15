@@ -99,7 +99,7 @@ h1 {
 
 h2 {
   margin: 0 0 18px;
-  padding: 0 8px;
+  padding: 0 8px 0 8px;
   /* slightly smaller responsive h2 scale to match target page */
   font-size: clamp(18px, 2.6vw, 28px);
   text-align: left;
@@ -107,6 +107,7 @@ h2 {
   font-weight: 700;
   text-transform: uppercase;
   color: var(--heading-color);
+  border-bottom: 3px solid var(--charles-blue);
 }
 
 h3 {
