@@ -45,16 +45,35 @@ html {
 body {
   /* reserve space at the top for the fixed banner + header across all pages */
   padding-top: calc(24px + var(--site-top-height));
-  padding-right: clamp(32px, 3vw, 20px);
-  padding-bottom: 24px;
-  padding-left: clamp(32px, 3vw, 20px);
+  /* side gutters: min = 32px, max = 48px — increased so text isn't cramped */
+  padding-right: clamp(32px, 1.0vw, 48px);
+  padding-bottom: 20px;
+  padding-left: clamp(32px, 1.0vw, 48px);
   box-sizing: border-box;
+  /* widen content area so edges are nearer the viewport */
   max-width: 1100px;
   margin: 0 auto;
   font-family: var(--font-body);
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
   color: var(--body-color);
+}
+
+/* Keep gutters roomier on medium/smaller desktop windows where clamp() may
+   shrink the visible spacing — increase padding when viewport is <= 1200px */
+@media (max-width: 1200px) {
+  body {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+/* On small/mobile viewports use a slightly smaller but comfortable gutter */
+@media (max-width: 600px) {
+  body {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 :root {
@@ -83,7 +102,8 @@ h1 {
 h2 {
   margin: 0 0 8px;
   padding: 0 8px;
-  font-size: 22px;
+  /* slightly smaller responsive h2 scale to match target page */
+  font-size: clamp(18px, 2.6vw, 28px);
   text-align: left;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -107,13 +127,7 @@ h4 {
   font-weight: 700;
 }
 
-/* Headings inside "team-member" cards, h2 = our names */
-h2 {
-  margin: 0 0 8px;
-  padding: 0 8px;
-  font-size: 24px;
-  text-align: left;
-}
+/* Headings inside "team-member" cards are handled by .team-member h2 below */
 
 h3 {
   margin: 0 0 8px;
