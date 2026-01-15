@@ -139,7 +139,7 @@
             <div class="graph-container">
                 <figure class="graph-figure">
                     <div id="d3-graph"></div>
-                    <figcaption>Data Sourced: Massachusetts Department of Environmental Protection's 2024 Municipal Solid Waste and Recycling Survey, Massachusetts Department of Revenue, & Massachusetts Municipal PAYT Programs June 2025 </figcaption>
+                    <figcaption>Data Sourced: <a href="https://www.mass.gov/lists/recycling-solid-waste-data-for-massachusetts-cities-towns" target="_blank">Massachusetts Department of Environmental Protection's 2024 Municipal Solid Waste and Recycling Survey</a>, <a href="https://dls-gw.dor.state.ma.us/reports/rdpage.aspx?rdreport=socioeconomic.population.population_main" target="_blank">Massachusetts Department of Revenue</a>, & <a href="https://www.mass.gov/lists/pay-as-you-throw-payt" target="_blank">Massachusetts Municipal PAYT Programs</a></figcaption>
                 </figure>
             </div>
 
@@ -296,7 +296,7 @@
                     { municipality: 'Peru', year: 4, tonnage: 0.5265373, type: 'post' }
                 ];
 
-                const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+                const margin = { top: 20, right: 30, bottom: 70, left: 90 };
                 const width = 900 - margin.left - margin.right;
                 const height = 500 - margin.top - margin.bottom;
 
@@ -322,7 +322,15 @@
 
                 const colorScale = d3.scaleOrdinal()
                     .domain(['Hinsdale', 'Peru', 'Heath', 'Chicopee', 'Harvard'])
-                    .range(['#091F2F', '#1871BD', '#FB4D42', '#51ACFF', '#45789C']);
+                    .range(['#D4DDE6', '#BADFF5', '#FFCCC5', '#D9EBFF', '#C5DAEB']);
+
+                const darkerColors = {
+                    'Hinsdale': '#091F2F',
+                    'Peru': '#1871BD',
+                    'Heath': '#FB4D42',
+                    'Chicopee': '#51ACFF',
+                    'Harvard': '#45789C'
+                };
 
                 // Line generator
                 const line = d3.line()
@@ -343,10 +351,16 @@
                         .attr('class', 'graph-line')
                         .style('opacity', 0.7)
                         .on('mouseover', function() {
-                            d3.select(this).style('opacity', 1).attr('stroke-width', 3.5);
+                            d3.select(this)
+                                .attr('stroke', darkerColors[municipality])
+                                .style('opacity', 1)
+                                .attr('stroke-width', 3.5);
                         })
                         .on('mouseout', function() {
-                            d3.select(this).style('opacity', 0.7).attr('stroke-width', 2.5);
+                            d3.select(this)
+                                .attr('stroke', colorScale(municipality))
+                                .style('opacity', 0.7)
+                                .attr('stroke-width', 2.5);
                         });
 
                     // Draw circles for data points
@@ -360,48 +374,83 @@
                         .attr('fill', colorScale(municipality))
                         .attr('class', `dots-${municipality}`)
                         .on('mouseover', function(event, d) {
-                            d3.select(this).attr('r', 6);
+                            d3.select(this)
+                                .attr('r', 6)
+                                .attr('fill', darkerColors[municipality]);
+                            
+                            // Create background box
+                            svg.append('rect')
+                                .attr('class', 'tooltip-box')
+                                .attr('x', xScale(d.year) - 55)
+                                .attr('y', yScale(d.tonnage) - 28)
+                                .attr('width', 110)
+                                .attr('height', 22)
+                                .attr('fill', '#ffffff')
+                                .attr('stroke', '#333')
+                                .attr('stroke-width', 1)
+                                .attr('rx', 4);
+                            
+                            // Create text
                             svg.append('text')
                                 .attr('class', 'tooltip')
                                 .attr('x', xScale(d.year))
                                 .attr('y', yScale(d.tonnage) - 10)
                                 .attr('text-anchor', 'middle')
                                 .attr('font-size', '12px')
+                                .style('font-family', 'Lora, serif')
                                 .attr('fill', '#333')
-                                .text(d.tonnage.toFixed(2) + ' tons');
+                                .text(municipality + ': ' + d.tonnage.toFixed(2) + ' tons');
                         })
                         .on('mouseout', function() {
-                            d3.select(this).attr('r', 4);
+                            d3.select(this)
+                                .attr('r', 4)
+                                .attr('fill', colorScale(municipality));
                             svg.selectAll('.tooltip').remove();
+                            svg.selectAll('.tooltip-box').remove();
                         });
                 });
 
                 // X-axis
-                svg.append('g')
+                const xAxis = svg.append('g')
                     .attr('transform', `translate(0,${height})`)
                     .call(d3.axisBottom(xScale).tickValues([-5, -3, 0, 3, 5]).tickFormat(d => {
-                        if (d === 0) return 'Implementation';
+                        if (d === 0) return 'Implementation Year';
                         if (d < 0) return `${Math.abs(d)}yr Pre`;
                         return `${d}yr Post`;
-                    }))
-                    .append('text')
+                    }));
+                
+                xAxis.selectAll('text')
+                    .style('font-family', 'Lora, serif')
+                    .style('font-size', '13px');
+                
+                xAxis.append('text')
                     .attr('x', width / 2)
                     .attr('y', 40)
+                    .attr('dy', '1em')
                     .attr('fill', '#333')
+                    .style('font-family', 'Montserrat, sans-serif')
                     .attr('font-size', '14px')
+                    .attr('font-weight', '500')
                     .attr('text-anchor', 'middle')
-                    .text('Timeline');
+                    .text('Years Since PAYT Adoption');
 
                 // Y-axis
-                svg.append('g')
-                    .call(d3.axisLeft(yScale))
-                    .append('text')
+                const yAxis = svg.append('g')
+                    .call(d3.axisLeft(yScale));
+                
+                yAxis.selectAll('text')
+                    .style('font-family', 'Lora, serif')
+                    .style('font-size', '13px');
+                
+                yAxis.append('text')
                     .attr('transform', 'rotate(-90)')
                     .attr('y', 0 - margin.left)
                     .attr('x', 0 - (height / 2))
                     .attr('dy', '1em')
                     .attr('fill', '#333')
+                    .style('font-family', 'Montserrat, sans-serif')
                     .attr('font-size', '14px')
+                    .attr('font-weight', '500')
                     .attr('text-anchor', 'middle')
                     .text('Tons per Household');
 
@@ -411,20 +460,21 @@
                     .enter()
                     .append('g')
                     .attr('class', 'legend')
-                    .attr('transform', (d, i) => `translate(0,${-height - 10 - i * 20})`);
+                    .attr('transform', (d, i) => `translate(${width - 140}, ${10 + i * 20})`);
 
                 legend.append('line')
                     .attr('x1', 0)
                     .attr('x2', 20)
                     .attr('y1', 0)
                     .attr('y2', 0)
-                    .attr('stroke', d => colorScale(d))
+                    .attr('stroke', d => darkerColors[d])
                     .attr('stroke-width', 2.5);
 
                 legend.append('text')
                     .attr('x', 25)
                     .attr('y', 4)
                     .attr('font-size', '12px')
+                    .style('font-family', 'Lora, serif')
                     .text(d => d);
 
                 document.querySelectorAll('.method-toggle').forEach(function (btn) {
