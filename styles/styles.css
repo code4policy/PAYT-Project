@@ -84,7 +84,7 @@ body {
 }
 
 h1 {
-  margin: 36px 0 14px 0;
+  margin: 36px 0 18px 0; /* tiny increase below h1 */
   padding: 6px 8px;
   text-align: left;
   text-transform: uppercase;
@@ -100,7 +100,7 @@ h1 {
 }
 
 h2 {
-  margin: 0 0 8px;
+  margin: 0 0 18px;
   padding: 0 8px;
   /* slightly smaller responsive h2 scale to match target page */
   font-size: clamp(18px, 2.6vw, 28px);
@@ -159,10 +159,49 @@ p, li, figcaption {
 /* Intro text styling - italicized text under h1 with line underneath */
 p.intro-text {
   font-style: italic;
-  font-size: 20px;
+  font-size: clamp(var(--body-font-size), 3.2vw, 24px);
   padding: 0 8px 1rem 8px;
-  border-bottom: 1px solid var(--support-gray-2);
+  line-height: 2; /* increased for improved readability */
+  color: var(--heading-color);
   margin-bottom: 1.5rem;
+}
+
+/* Decorative squiggly divider used between intro text and the first h2 */
+.squiggle {
+  /* Align the squiggle pattern with the site's left/right gutters so it
+     visually lines up with body text. Use the same gutter values and media
+     overrides so the offsets match exactly. */
+  display: block;
+  width: 100%;
+  max-width: 1100px; /* same content width as body */
+  margin: 8px auto 32px; /* center within the content column; increased bottom gap */
+  /* make the visual divider shorter to match the reference */
+  height: 12px;
+  box-sizing: border-box;
+  /* create matching left/right padding equal to the body's gutters so the
+     tiled SVG starts exactly where the text content begins */
+  padding-left: clamp(32px, 1.0vw, 48px);
+  padding-right: clamp(32px, 1.0vw, 48px);
+  background-image: url("../images/squiggle.svg");
+  background-repeat: repeat-x;
+  background-position: left center;
+  /* make each tile narrow so the squiggle has many bumps across the content width */
+  background-size: 28px 100%;
+}
+
+/* Match the body gutter overrides so the squiggle padding remains identical */
+@media (max-width: 1200px) {
+  .squiggle {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .squiggle {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 /* General list reset to reduce large default browser spacing */
@@ -541,6 +580,8 @@ ul ul li {
   margin: 12px 0;
   font-size: 24px;
 }
+/* give team-member headings more space below to match other h2 spacing */
+.team-member h2 { margin-bottom: 24px; }
 
 /* allows image to be responsive to the "card" size when screen size changes! */
 img {
