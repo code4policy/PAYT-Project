@@ -187,6 +187,28 @@
                     </div>
                     
         </div>
+        <script>
+          var lastBannerHeight = null;
+          
+          function syncHeaderPosition(){
+            var banner = document.querySelector('.disclaim-banner');
+            var header = document.querySelector('.top-header');
+            if(!banner || !header) return;
+            
+            var bannerHeight = banner.offsetHeight;
+            if(bannerHeight !== lastBannerHeight) {
+              lastBannerHeight = bannerHeight;
+              header.style.top = bannerHeight + 'px';
+              document.body.style.paddingTop = 'calc(24px + ' + bannerHeight + 'px + 64px)';
+            }
+          }
+          
+          // Poll on every frame (16ms) to catch text reflow immediately
+          setInterval(syncHeaderPosition, 16);
+          
+          window.addEventListener('load', syncHeaderPosition);
+          window.addEventListener('resize', syncHeaderPosition);
+        </script>
 <!-- Section: Considerations for PAYT in Boston -->
             <div class="sectionbanner">Considerations for Pay as You Throw in Boston</div>
                 <ul>
@@ -243,11 +265,22 @@
                     // console.log('setStatsFullpageHeight', { rectTop: rect.top, remaining: remaining, cap: cap, applied: applied });
                 }
 
+                // Measure the actual banner height and publish it to CSS so the
+                // header can sit directly beneath the banner even when the banner
+                // grows to multiple lines.
+                function setBannerHeightVar() {
+                    var banner = document.querySelector('.disclaim-banner');
+                    if (!banner) return;
+                    var h = banner.offsetHeight || 0;
+                    // write the measured value as a CSS variable on :root
+                    document.documentElement.style.setProperty('--top-banner-height', h + 'px');
+                }
+
                 // run after full page load and on resize (and when fonts/images settle)
-                window.addEventListener('load', setStatsFullpageHeight);
-                window.addEventListener('resize', setStatsFullpageHeight);
+                window.addEventListener('load', function () { setBannerHeightVar(); setStatsFullpageHeight(); });
+                window.addEventListener('resize', function () { setBannerHeightVar(); setStatsFullpageHeight(); });
                 // run shortly after DOM ready in case load already occurred
-                setTimeout(setStatsFullpageHeight, 120);
+                setTimeout(function () { setBannerHeightVar(); setStatsFullpageHeight(); }, 120);
 
                 // Hide the nav when its contents no longer fit (prevents words being cut off)
                 function debounce(fn, wait) {
@@ -287,13 +320,13 @@
 
                 var debouncedNavCheck = debounce(updateNavVisibility, 100);
                 // run on load, resize, and once fonts are ready (font load can change measurements)
-                window.addEventListener('load', debouncedNavCheck);
-                window.addEventListener('resize', debouncedNavCheck);
+                window.addEventListener('load', function () { setBannerHeightVar(); debouncedNavCheck(); });
+                window.addEventListener('resize', function () { setBannerHeightVar(); debouncedNavCheck(); });
                 if (document.fonts && document.fonts.ready) {
-                    document.fonts.ready.then(debouncedNavCheck);
+                    document.fonts.ready.then(function () { setBannerHeightVar(); debouncedNavCheck(); });
                 }
                 // quick run after DOM ready to catch initial state
-                setTimeout(debouncedNavCheck, 200);
+                setTimeout(function () { setBannerHeightVar(); debouncedNavCheck(); }, 200);
             });
         </script>
 </body>
