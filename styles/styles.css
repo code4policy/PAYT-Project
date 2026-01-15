@@ -40,6 +40,12 @@ html {
   font-size: 16px;
 }
 
+/* Use border-box everywhere so width calculations include padding/border
+   — prevents 100% width elements plus padding from overflowing flex items */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   /* reserve space at the top for the fixed banner + header across all pages */
   padding-top: calc(24px + var(--site-top-height));
@@ -601,6 +607,18 @@ ul ul li {
   word-break: break-word;
 }
 
+/* Force first and last name onto separate lines and keep the underline */
+.team-member h2 .first,
+.team-member h2 .last {
+  display: block;
+  line-height: 1;
+}
+
+.team-member h2 { /* ensure underline appears directly under the name block */
+  border-bottom: 3px solid var(--charles-blue);
+  padding-bottom: 6px; /* small gap between text and underline to match Brandon */
+}
+
 /* allows image to be responsive to the "card" size when screen size changes! */
 img {
   max-width: 100%;
@@ -619,36 +637,33 @@ img {
   box-sizing: border-box;
 }
 
-/* Each member is a vertical card, equal height */
+/* Each member is a vertical card (base rules) */
 .team-member {
-  flex: 1 1 30%;
-  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Ensure images fill card width and don't stretch height */
+.team-member {
+  /* Use explicit column math so each card keeps the same width when rows wrap */
+  flex: 0 1 calc((100% - 40px) / 3); /* three-up layout accounting for 2 gaps of 20px */
+  max-width: calc((100% - 40px) / 3);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   border: 1px solid #ddd;
-  background: #fff;
+  background: #1772be;
   /* prevent any child text from overflowing the card */
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
-/* Ensure images fill card width and don't stretch height */
-.team-member img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  margin: 0;
-}
-
-/* Card content spacing */
+/* Paragraphs inside team cards */
 .team-member p {
-  margin: 0 0 12px;
-  font-size: inherit;
   line-height: var(--body-line-height);
-  color: var(--body-color);
+  color: #F2F2F2;
   text-align: left;
   padding: 12px 20px;
   /* ensure paragraph text wraps inside the card */
@@ -660,22 +675,57 @@ img {
 /* Push email to bottom so cards align visually */
 .team-member .email {
   margin-top: auto;
-  font-weight: 600;
-  color: darkolivegreen;
-  /* allow long email addresses to break and wrap inside the card */
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #F2F2F2;
+  font-size: 0.68rem; /* slightly larger so email is more readable */
+  /* allow wrapping so emails always stay inside the card */
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
+  letter-spacing: 0.02em;
+  max-width: 100%;
+  box-sizing: border-box;
+    /* allow email height to size naturally so other emails move up when
+      one wraps to multiple lines (remove fixed min-height) */
+    line-height: 1.1;
+}
+
+/* Make very small screens use a smaller email size to avoid overflow */
+@media (max-width: 420px) {
+  .team-member .email {
+    font-size: 0.60rem;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* Make all text inside team member boxes the same light color */
+.team-member,
+.team-member h2,
+.team-member h2 .first,
+.team-member h2 .last,
+.team-member p,
+.team-member .email,
+.team-member a {
+  color: #F2F2F2;
 }
 
 /* Small-screen adjustments */
 @media (max-width: 900px) {
-  .team-member { flex: 1 1 45%; }
+  .team-member {
+    flex: 0 1 calc((100% - 20px) / 2); /* two-up layout accounting for 1 gap */
+    max-width: calc((100% - 20px) / 2);
+  }
 }
 
 @media (max-width: 600px) {
   .team-row { padding: 0 12px; }
-  .team-member { flex: 1 1 100%; }
+  .team-member {
+    flex: 0 1 100%;
+    max-width: 100%;
+  }
 }
 
 .photo {
@@ -691,6 +741,7 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center center; /* center focal point by default */
+  border-radius: 0; /* ensure photos inside .photo container are square */
 }
 .asteric {
     font-size: 0.85em; /* smaller than .label */
