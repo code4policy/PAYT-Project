@@ -53,5 +53,22 @@
         <h3>Full PAYT Models</h3>
           <p>Households pay for each unit they dispose of.</p>
           <p>MA Municipalities with this model: ...</p>
-  </body>
+  <script>
+    (function () {
+      function setBannerHeightVar() {
+        var banner = document.querySelector('.disclaim-banner');
+        if (!banner) return;
+        var h = banner.offsetHeight || 0;
+        document.documentElement.style.setProperty('--top-banner-height', h + 'px');
+      }
+      window.addEventListener('load', setBannerHeightVar);
+      window.addEventListener('resize', setBannerHeightVar);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(setBannerHeightVar);
+      }
+      setTimeout(setBannerHeightVar, 120);
+    })();
+  </script>
+
+</body>
 </html>

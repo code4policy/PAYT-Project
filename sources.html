@@ -22,5 +22,22 @@
       </div>
     </header>
     <h1>Sources</h1>
-  </body>
+  <script>
+    (function () {
+      function setBannerHeightVar() {
+        var banner = document.querySelector('.disclaim-banner');
+        if (!banner) return;
+        var h = banner.offsetHeight || 0;
+        document.documentElement.style.setProperty('--top-banner-height', h + 'px');
+      }
+      window.addEventListener('load', setBannerHeightVar);
+      window.addEventListener('resize', setBannerHeightVar);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(setBannerHeightVar);
+      }
+      setTimeout(setBannerHeightVar, 120);
+    })();
+  </script>
+
+</body>
 </html>

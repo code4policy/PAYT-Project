@@ -22,6 +22,7 @@
   --brand-navy: var(--charles-blue);
   --top-banner-height: 39px; /* tiny bump to better match screenshot */
   --header-height: 64px; /* height reserved for the white menu bar */
+  --site-top-height: calc(var(--top-banner-height) + var(--header-height));
   --heading-color: var(--brand-navy);
 }
 
@@ -31,7 +32,7 @@ html {
 }
 
 body {
-  padding: calc(24px + var(--top-banner-height) + var(--header-height)) clamp(32px, 3vw, 20px) 24px clamp(32px, 3vw, 20px);
+  padding: 24px clamp(32px, 3vw, 20px) 24px clamp(32px, 3vw, 20px);
   box-sizing: border-box;
   max-width: 1100px;
   margin: 0 auto;
@@ -273,6 +274,7 @@ ul ul li {
 }
 
 /* Top banner: simple, full-width within body (no viewport trick) */
+/* Top banner: simple, full-width within body (no viewport trick) */
 .disclaim-banner {
   /* pinned full-bleed top bar */
   position: fixed;
@@ -282,16 +284,18 @@ ul ul li {
   background: var(--brand-navy);
   color: #ffffff;
   text-align: center;
-  min-height: var(--top-banner-height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 40px;
   padding: 8px 12px;
   box-sizing: border-box;
   font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 400;
   font-size: 13px; /* keep banner text size */
   z-index: 9999;
+  width: 100%;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Ensure any leftover images inside the disclaimer are hidden */
@@ -305,14 +309,7 @@ ul ul li {
 /* banner logo styles removed (logo image no longer used) */
 
 .disclaim-banner .banner-text {
-  line-height: 1; /* keep text vertically aligned inside the taller banner */
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.disclaim-banner .banner-text {
-  display: inline-block;
-  vertical-align: middle;
+  /* allow text to wrap and unwrap naturally */
 }
 
 /* Media query: increase line-height when text wraps to multiple lines */
@@ -324,25 +321,20 @@ ul ul li {
 
 /* Main header (white menu bar) placed below the top banner */
 .top-header {
-  width: 100vw; /* span the viewport */
-  left: 0;
-  right: 0;
+  width: 100%;
   background: #ffffff;
   position: fixed;
   top: var(--top-banner-height);
   height: var(--header-height);
   z-index: 9998;
+  left: 0;
+  right: 0;
   /* subtle shadow to match screenshot */
   box-shadow: 0 4px 14px rgba(9,31,47,0.12) !important;
-  width: 100%;
 }
 
-/* On smaller screens, adjust top position when banner stretches */
-@media (max-width: 768px) {
-  .top-header {
-    top: calc(var(--top-banner-height) + 24px);
-  }
-}
+/* The header's top position is controlled via JavaScript which tracks the banner's
+   actual height so it will sit flush beneath the banner even when the banner wraps. */
 .top-header .header-inner {
   max-width: 1100px;
   margin: 0 auto;
