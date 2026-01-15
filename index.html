@@ -4,6 +4,8 @@
         <title>Demo Website</title>
         <!-- linking css file-->
         <link href="styles/styles.css" rel="stylesheet" />
+        <!-- D3.js library -->
+        <script src="https://d3js.org/d3.v7.min.js"></script>
         
     </head>
     <body>
@@ -135,7 +137,7 @@
 
             <div class="graph-container">
                 <figure class="graph-figure">
-                    <img class="graph-img" src="data/payt_panels.png" alt="Pre-post effect of PAYT">
+                    <div id="d3-graph"></div>
                     <figcaption>Data Sourced: Massachusetts Department of Environmental Protection's 2024 Municipal Solid Waste and Recycling Survey, Massachusetts Department of Revenue, & Massachusetts Municipal PAYT Programs June 2025 </figcaption>
                 </figure>
             </div>
@@ -221,6 +223,198 @@
                     </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                // D3 Interactive Graph - Pre-Post PAYT Effect
+                const graphData = [
+                    // Chicopee (PAYT 2017, years_payt: -4 to 5)
+                    { municipality: 'Chicopee', year: -4, tonnage: 0.7393617, type: 'pre' },
+                    { municipality: 'Chicopee', year: -3, tonnage: 0.7267905, type: 'pre' },
+                    { municipality: 'Chicopee', year: -2, tonnage: 0.7201172, type: 'pre' },
+                    { municipality: 'Chicopee', year: -1, tonnage: 0.7240520, type: 'pre' },
+                    { municipality: 'Chicopee', year: 0, tonnage: 0.5886695, type: 'post' },
+                    { municipality: 'Chicopee', year: 1, tonnage: 0.6204813, type: 'post' },
+                    { municipality: 'Chicopee', year: 2, tonnage: 0.5576872, type: 'post' },
+                    { municipality: 'Chicopee', year: 3, tonnage: 0.6272738, type: 'post' },
+                    { municipality: 'Chicopee', year: 4, tonnage: 0.6468433, type: 'post' },
+                    { municipality: 'Chicopee', year: 5, tonnage: 0.6151788, type: 'post' },
+                    // Harvard (PAYT 2019, years_payt: -5 to 5)
+                    { municipality: 'Harvard', year: -5, tonnage: 0.8311209, type: 'pre' },
+                    { municipality: 'Harvard', year: -4, tonnage: 0.8260870, type: 'pre' },
+                    { municipality: 'Harvard', year: -3, tonnage: 0.9753580, type: 'pre' },
+                    { municipality: 'Harvard', year: -2, tonnage: 0.8177323, type: 'pre' },
+                    { municipality: 'Harvard', year: -1, tonnage: 0.8061971, type: 'pre' },
+                    { municipality: 'Harvard', year: 0, tonnage: 0.6302390, type: 'post' },
+                    { municipality: 'Harvard', year: 1, tonnage: 0.5599200, type: 'post' },
+                    { municipality: 'Harvard', year: 2, tonnage: 0.5020960, type: 'post' },
+                    { municipality: 'Harvard', year: 3, tonnage: 0.4425517, type: 'post' },
+                    { municipality: 'Harvard', year: 4, tonnage: 0.4455224, type: 'post' },
+                    { municipality: 'Harvard', year: 5, tonnage: 0.4975635, type: 'post' },
+                    // Heath (PAYT 2017, years_payt: -5 to 5)
+                    { municipality: 'Heath', year: -5, tonnage: 0.9145299, type: 'pre' },
+                    { municipality: 'Heath', year: -4, tonnage: 0.7803922, type: 'pre' },
+                    { municipality: 'Heath', year: -3, tonnage: 0.7142857, type: 'pre' },
+                    { municipality: 'Heath', year: -2, tonnage: 0.7811877, type: 'pre' },
+                    { municipality: 'Heath', year: -1, tonnage: 0.6587726, type: 'pre' },
+                    { municipality: 'Heath', year: 0, tonnage: 0.5249527, type: 'post' },
+                    { municipality: 'Heath', year: 1, tonnage: 0.3610714, type: 'post' },
+                    { municipality: 'Heath', year: 2, tonnage: 0.3556857, type: 'post' },
+                    { municipality: 'Heath', year: 3, tonnage: 0.4209174, type: 'post' },
+                    { municipality: 'Heath', year: 4, tonnage: 0.4009621, type: 'post' },
+                    { municipality: 'Heath', year: 5, tonnage: 0.3579228, type: 'post' },
+                    // Hinsdale (PAYT 2017, years_payt: -4 to 5)
+                    { municipality: 'Hinsdale', year: -4, tonnage: 0.8728448, type: 'pre' },
+                    { municipality: 'Hinsdale', year: -3, tonnage: 0.9290323, type: 'pre' },
+                    { municipality: 'Hinsdale', year: -2, tonnage: 0.9652903, type: 'pre' },
+                    { municipality: 'Hinsdale', year: -1, tonnage: 0.9324731, type: 'pre' },
+                    { municipality: 'Hinsdale', year: 0, tonnage: 0.6558077, type: 'post' },
+                    { municipality: 'Hinsdale', year: 1, tonnage: 0.4879636, type: 'post' },
+                    { municipality: 'Hinsdale', year: 2, tonnage: 0.4927273, type: 'post' },
+                    { municipality: 'Hinsdale', year: 3, tonnage: 0.5397254, type: 'post' },
+                    { municipality: 'Hinsdale', year: 4, tonnage: 0.5259774, type: 'post' },
+                    { municipality: 'Hinsdale', year: 5, tonnage: 0.4343286, type: 'post' },
+                    // Peru (PAYT 2017, years_payt: -5 to 4)
+                    { municipality: 'Peru', year: -5, tonnage: 0.6625000, type: 'pre' },
+                    { municipality: 'Peru', year: -4, tonnage: 0.6781250, type: 'pre' },
+                    { municipality: 'Peru', year: -3, tonnage: 0.6375000, type: 'pre' },
+                    { municipality: 'Peru', year: -2, tonnage: 0.6742813, type: 'pre' },
+                    { municipality: 'Peru', year: -1, tonnage: 0.5378307, type: 'pre' },
+                    { municipality: 'Peru', year: 0, tonnage: 0.7028621, type: 'post' },
+                    { municipality: 'Peru', year: 1, tonnage: 0.6156156, type: 'post' },
+                    { municipality: 'Peru', year: 2, tonnage: 0.5544776, type: 'post' },
+                    { municipality: 'Peru', year: 3, tonnage: 0.5881493, type: 'post' },
+                    { municipality: 'Peru', year: 4, tonnage: 0.5265373, type: 'post' }
+                ];
+
+                const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+                const width = 900 - margin.left - margin.right;
+                const height = 500 - margin.top - margin.bottom;
+
+                const svg = d3.select('#d3-graph')
+                    .append('svg')
+                    .attr('width', width + margin.left + margin.right)
+                    .attr('height', height + margin.top + margin.bottom)
+                    .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+                    .attr('preserveAspectRatio', 'xMidYMid meet')
+                    .style('max-width', '100%')
+                    .style('height', 'auto')
+                    .append('g')
+                    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+                // Scales
+                const xScale = d3.scaleLinear()
+                    .domain([-5, 5])
+                    .range([0, width]);
+
+                const yScale = d3.scaleLinear()
+                    .domain([0, 1.5])
+                    .range([height, 0]);
+
+                const colorScale = d3.scaleOrdinal()
+                    .domain(['Hinsdale', 'Peru', 'Heath', 'Chicopee', 'Harvard'])
+                    .range(['#091F2F', '#1871BD', '#FB4D42', '#51ACFF', '#45789C']);
+
+                // Line generator
+                const line = d3.line()
+                    .x(d => xScale(d.year))
+                    .y(d => yScale(d.tonnage));
+
+                // Group data by municipality
+                const municipalities = d3.group(graphData, d => d.municipality);
+
+                // Draw lines for each municipality
+                municipalities.forEach((data, municipality) => {
+                    svg.append('path')
+                        .datum(data)
+                        .attr('fill', 'none')
+                        .attr('stroke', colorScale(municipality))
+                        .attr('stroke-width', 2.5)
+                        .attr('d', line)
+                        .attr('class', 'graph-line')
+                        .style('opacity', 0.7)
+                        .on('mouseover', function() {
+                            d3.select(this).style('opacity', 1).attr('stroke-width', 3.5);
+                        })
+                        .on('mouseout', function() {
+                            d3.select(this).style('opacity', 0.7).attr('stroke-width', 2.5);
+                        });
+
+                    // Draw circles for data points
+                    svg.selectAll(`.dots-${municipality}`)
+                        .data(data)
+                        .enter()
+                        .append('circle')
+                        .attr('cx', d => xScale(d.year))
+                        .attr('cy', d => yScale(d.tonnage))
+                        .attr('r', 4)
+                        .attr('fill', colorScale(municipality))
+                        .attr('class', `dots-${municipality}`)
+                        .on('mouseover', function(event, d) {
+                            d3.select(this).attr('r', 6);
+                            svg.append('text')
+                                .attr('class', 'tooltip')
+                                .attr('x', xScale(d.year))
+                                .attr('y', yScale(d.tonnage) - 10)
+                                .attr('text-anchor', 'middle')
+                                .attr('font-size', '12px')
+                                .attr('fill', '#333')
+                                .text(d.tonnage.toFixed(2) + ' tons');
+                        })
+                        .on('mouseout', function() {
+                            d3.select(this).attr('r', 4);
+                            svg.selectAll('.tooltip').remove();
+                        });
+                });
+
+                // X-axis
+                svg.append('g')
+                    .attr('transform', `translate(0,${height})`)
+                    .call(d3.axisBottom(xScale).tickValues([-5, -3, 0, 3, 5]).tickFormat(d => {
+                        if (d === 0) return 'Implementation';
+                        if (d < 0) return `${Math.abs(d)}yr Pre`;
+                        return `${d}yr Post`;
+                    }))
+                    .append('text')
+                    .attr('x', width / 2)
+                    .attr('y', 40)
+                    .attr('fill', '#333')
+                    .attr('font-size', '14px')
+                    .attr('text-anchor', 'middle')
+                    .text('Timeline');
+
+                // Y-axis
+                svg.append('g')
+                    .call(d3.axisLeft(yScale))
+                    .append('text')
+                    .attr('transform', 'rotate(-90)')
+                    .attr('y', 0 - margin.left)
+                    .attr('x', 0 - (height / 2))
+                    .attr('dy', '1em')
+                    .attr('fill', '#333')
+                    .attr('font-size', '14px')
+                    .attr('text-anchor', 'middle')
+                    .text('Tons per Household');
+
+                // Legend
+                const legend = svg.selectAll('.legend')
+                    .data(['Hinsdale', 'Peru', 'Heath', 'Chicopee', 'Harvard'])
+                    .enter()
+                    .append('g')
+                    .attr('class', 'legend')
+                    .attr('transform', (d, i) => `translate(0,${-height - 10 - i * 20})`);
+
+                legend.append('line')
+                    .attr('x1', 0)
+                    .attr('x2', 20)
+                    .attr('y1', 0)
+                    .attr('y2', 0)
+                    .attr('stroke', d => colorScale(d))
+                    .attr('stroke-width', 2.5);
+
+                legend.append('text')
+                    .attr('x', 25)
+                    .attr('y', 4)
+                    .attr('font-size', '12px')
+                    .text(d => d);
+
                 document.querySelectorAll('.method-toggle').forEach(function (btn) {
                     var content = btn.parentElement.querySelector('.method-content');
                     btn.addEventListener('click', function () {
