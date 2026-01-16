@@ -940,7 +940,7 @@ img {
 }
 
 .impact-compare .stat-blocks.stack .stat-block {
-  min-height: 180px; /* normalize heights to the tallest card */
+  min-height: 160px; /* normalize heights to the tallest card */
 }
 
 /* Stat Blocks - Boston.gov style card layout */
