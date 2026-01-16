@@ -361,8 +361,8 @@ ul ul li {
   padding: 8px 12px;
   box-sizing: border-box;
   font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: 13px; /* keep banner text size */
+  font-weight: 550;
+  font-size: 14px; /* keep banner text size */
   z-index: 9999;
   width: 100%;
   line-height: normal;
