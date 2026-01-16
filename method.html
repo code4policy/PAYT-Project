@@ -9,7 +9,7 @@
     <link href="styles/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="disclaim-banner"><img src="images/logo_white_red.svg" alt="City of Boston" class="banner-logo"><span class="banner-text">This is not an official City of Boston website. This is an academic project created by Harvard Kennedy School students</span></div>
+    <div class="disclaim-banner"><img src="images/logo_white_red.svg" alt="City of Boston" class="banner-logo"><span class="banner-text">This is not an official City of Boston website. This is an academic project created by Harvard Kennedy School students.</span></div>
     <header class="top-header">
       <div class="header-inner">
         <img src="images/logo.svg" alt="City of Boston" class="site-logo">
@@ -106,45 +106,38 @@
                     </div>
 
                     
-  <h2>Pre-Post Effect of PAYT Within a 5-year Time Period</h2>  
+  <h2>Pre-Post Effect of PAYT Within a 5-year Time Period</h2>
+  
   <strong>Step 1:</strong> Merge data sources to obtain key information
-                                    <ul>
-                                        <li>Data sources include the Massachusetts Department of Environmental Protection's Municipal Solid Waste and Recycling surveys from 2009 to 2024, inclusive; the Massachusetts Department of Revenue's Divison of Local Services; and the Massachusetts Department of Environmental Protection's spreadsheet, "Massachusetts Municipalities with PAYT Programs, June 2025".</li>
-                                        <li>Key information: PAYT adoption year, years pre- and post-PAYT adoption, number of households enrolled in each municipality's trash system, annual tonnage disposed per household.</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <strong>Step 2:</strong> Generate annual tons of waste disposed per household
-                                    <ul>
-                                        <li>Tons per household are calculated by dividing the municipality's total annual disposal tonnage by the number of households served by the PAYT program.</li>
-                                        <li>Tons per household standardizes our metric, as larger municipalities will dispose of more total trash than smaller municipalities.</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <strong>Step 3:</strong> Remove records that would distort the "normal trash" comparison
-                                    <ul>
-                                        <li>Keep only rows of data in which bulky waste is excluded.</li>
-                                        <li>Exclude years that did not record yearly tonnage.</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <strong>Step 4:</strong> Identify the longest pre- and post-period for parallel trends
-                                    <ul>
-                                        <li>Filter data to contain municipalities with data 5 years before implementing PAYT through 5 years after implementing PAYT.</li>
-                                        <li>If one town has 20 years of data and another has 3 years, comparisons may not follow parallel trends; therefore, we may not conclude that adopting PAYT had a statistically significant result.</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <strong>Step 5:</strong> Select Harvard, Chicopee, Heath, Hinsdale, and Peru
-                                </li>
-                                <li>
-                                    <strong>Step 6:</strong> Create a time series chart
-                                    <ul>
-                                        <li><strong>IMPORTANT NOTE:</strong> Our time of adoption begins at -1 (the adoption year); Year 0 is the implementation year; Year 1 is one year after implementation.</li>
-                                    </ul>
-                                </li>
-                        </div>
-                    </div>
+  <ul>
+    <li>Data sources include the Massachusetts Department of Environmental Protection's Municipal Solid Waste and Recycling surveys from 2009 to 2024, inclusive; the Massachusetts Department of Revenue's Division of Local Services; and the Massachusetts Department of Environmental Protection's spreadsheet, "Massachusetts Municipalities with PAYT Programs, June 2025".</li>
+    <li>Key information: PAYT adoption year, years pre- and post-PAYT adoption, number of households enrolled in each municipality's trash system, annual tonnage disposed per household.</li>
+  </ul>
+
+  <strong>Step 2:</strong> Generate annual tons of waste disposed per household
+  <ul>
+    <li>Tons per household are calculated by dividing the municipality's total annual disposal tonnage by the number of households served by the PAYT program.</li>
+    <li>Tons per household standardizes our metric, as larger municipalities will dispose of more total trash than smaller municipalities.</li>
+  </ul>
+
+  <strong>Step 3:</strong> Remove records that would distort the "normal trash" comparison
+  <ul>
+    <li>Keep only rows of data in which bulky waste is excluded.</li>
+    <li>Exclude years that did not record yearly tonnage.</li>
+  </ul>
+
+  <strong>Step 4:</strong> Identify the longest pre- and post-period for parallel trends
+  <ul>
+    <li>Filter data to contain municipalities with data 5 years before implementing PAYT through 5 years after implementing PAYT.</li>
+    <li>If one town has 20 years of data and another has 3 years, comparisons may not follow parallel trends; therefore, we may not conclude that adopting PAYT had a statistically significant result.</li>
+  </ul>
+
+  <strong>Step 5:</strong> Select Harvard, Chicopee, Heath, Hinsdale, and Peru
+
+  <strong>Step 6:</strong> Create a time series chart
+  <ul>
+    <li><strong>IMPORTANT NOTE:</strong> Our time of adoption begins at -1 (the adoption year); Year 0 is the implementation year; Year 1 is one year after implementation.</li>
+  </ul>
 
   <script>
     (function () {
