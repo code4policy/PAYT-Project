@@ -529,6 +529,19 @@ ul ul li {
   margin: 0 2px;
 }
 
+/* Badge list - remove bullet points and use badges as markers */
+.badge-list {
+  list-style: none;
+  margin: 8px 0 16px 0;
+  padding-left: 8px;
+}
+
+.badge-list li {
+  margin: 0;
+  padding: 4px 0;
+  line-height: 1.5;
+}
+
 /* Small inline section note used near figures (not the global top banner) */
 .section-note {
   background: transparent;
